@@ -220,7 +220,7 @@ npm run dev
 
 ---
 
-## 8. Team Collaboration & Git Workflow
+## 7. Team Collaboration & Git Workflow
 
 To maintain a clean and reliable codebase, teammates should follow this Git branching model:
 
@@ -255,7 +255,7 @@ To maintain a clean and reliable codebase, teammates should follow this Git bran
 
 ---
 
-## 9. Automated Testing & Verification
+## 8. Automated Testing & Verification
 
 EVA includes two comprehensive automated test suites:
 
@@ -299,7 +299,7 @@ node test_e2e_full.js
 
 ---
 
-## 8. Summary of REST API Endpoints
+## 9. Summary of REST API Endpoints
 
 ### Authentication & Profiles (`/api/auth`, `/api/users`)
 - `POST /api/auth/student/signup` — Student registration with domain validation
@@ -350,7 +350,7 @@ node test_e2e_full.js
 
 ---
 
-## 9. Academic Integrity & Project Standards
+## 10. Academic Integrity & Project Standards
 - **Relational Integrity:** Pure relational architecture with zero synthetic mocks or client-side storage substitutes.
 - **Security:** Passwords salted and hashed with modern adaptive cryptanalysis resistant algorithms (`bcrypt` / PBKDF2-SHA256). JWTs signed with secret keys, verified on every protected API call.
 - **Hardware Integration:** Browser-based camera QR code scanner powered by `html5-qrcode` with instant audio/visual confirmation feedback.
