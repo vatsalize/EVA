@@ -1,0 +1,164 @@
+[
+  {
+    "checkin_id": "CHK0001",
+    "registration_id": "REG0001",
+    "event_id": "EVT001",
+    "student_id": "STU001",
+    "scanned_at": "2026-11-20T10:00:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0002",
+    "registration_id": "REG0002",
+    "event_id": "EVT001",
+    "student_id": "STU002",
+    "scanned_at": "2026-11-20T10:01:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0003",
+    "registration_id": "REG0003",
+    "event_id": "EVT001",
+    "student_id": "STU003",
+    "scanned_at": "2026-11-20T10:02:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0004",
+    "registration_id": "REG0004",
+    "event_id": "EVT001",
+    "student_id": "STU004",
+    "scanned_at": "2026-11-20T10:03:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0005",
+    "registration_id": "REG0005",
+    "event_id": "EVT001",
+    "student_id": "STU005",
+    "scanned_at": "2026-11-20T10:04:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0006",
+    "registration_id": "REG0006",
+    "event_id": "EVT002",
+    "student_id": "STU004",
+    "scanned_at": "2026-11-22T10:00:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0007",
+    "registration_id": "REG0007",
+    "event_id": "EVT002",
+    "student_id": "STU005",
+    "scanned_at": "2026-11-22T10:01:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0008",
+    "registration_id": "REG0008",
+    "event_id": "EVT002",
+    "student_id": "STU006",
+    "scanned_at": "2026-11-22T10:02:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0009",
+    "registration_id": "REG0009",
+    "event_id": "EVT002",
+    "student_id": "STU007",
+    "scanned_at": "2026-11-22T10:03:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0010",
+    "registration_id": "REG0010",
+    "event_id": "EVT002",
+    "student_id": "STU008",
+    "scanned_at": "2026-11-22T10:04:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0011",
+    "registration_id": "REG0011",
+    "event_id": "EVT002",
+    "student_id": "STU009",
+    "scanned_at": "2026-11-22T10:05:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0012",
+    "registration_id": "REG0012",
+    "event_id": "EVT003",
+    "student_id": "STU007",
+    "scanned_at": "2026-11-25T10:00:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0013",
+    "registration_id": "REG0013",
+    "event_id": "EVT003",
+    "student_id": "STU008",
+    "scanned_at": "2026-11-25T10:01:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0014",
+    "registration_id": "REG0014",
+    "event_id": "EVT003",
+    "student_id": "STU009",
+    "scanned_at": "2026-11-25T10:02:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0015",
+    "registration_id": "REG0015",
+    "event_id": "EVT003",
+    "student_id": "STU010",
+    "scanned_at": "2026-11-25T10:03:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0016",
+    "registration_id": "REG0016",
+    "event_id": "EVT003",
+    "student_id": "STU011",
+    "scanned_at": "2026-11-25T10:04:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0017",
+    "registration_id": "REG0017",
+    "event_id": "EVT003",
+    "student_id": "STU012",
+    "scanned_at": "2026-11-25T10:05:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  },
+  {
+    "checkin_id": "CHK0018",
+    "registration_id": "REG0018",
+    "event_id": "EVT003",
+    "student_id": "STU001",
+    "scanned_at": "2026-11-25T10:06:00",
+    "scan_status": "ACCEPTED",
+    "scanner_id": "SCANNER-DEMO-01"
+  }
+]

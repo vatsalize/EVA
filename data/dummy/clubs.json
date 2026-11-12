@@ -1,0 +1,32 @@
+[
+  {
+    "club_id": "CLB001",
+    "name": "Coding Club",
+    "category": "Technical"
+  },
+  {
+    "club_id": "CLB002",
+    "name": "Robotics Club",
+    "category": "Technical"
+  },
+  {
+    "club_id": "CLB003",
+    "name": "Cultural Club",
+    "category": "Cultural"
+  },
+  {
+    "club_id": "CLB004",
+    "name": "Literary Society",
+    "category": "Literary"
+  },
+  {
+    "club_id": "CLB005",
+    "name": "Entrepreneurship Cell",
+    "category": "Entrepreneurship"
+  },
+  {
+    "club_id": "CLB006",
+    "name": "Photography Club",
+    "category": "Creative"
+  }
+]

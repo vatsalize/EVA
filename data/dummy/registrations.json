@@ -1,0 +1,458 @@
+[
+  {
+    "registration_id": "REG0001",
+    "event_id": "EVT001",
+    "student_id": "STU001",
+    "registered_at": "2026-11-20T08:00:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0001-TOKEN"
+  },
+  {
+    "registration_id": "REG0002",
+    "event_id": "EVT001",
+    "student_id": "STU002",
+    "registered_at": "2026-11-20T08:01:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0002-TOKEN"
+  },
+  {
+    "registration_id": "REG0003",
+    "event_id": "EVT001",
+    "student_id": "STU003",
+    "registered_at": "2026-11-20T08:02:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0003-TOKEN"
+  },
+  {
+    "registration_id": "REG0004",
+    "event_id": "EVT001",
+    "student_id": "STU004",
+    "registered_at": "2026-11-20T08:03:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0004-TOKEN"
+  },
+  {
+    "registration_id": "REG0005",
+    "event_id": "EVT001",
+    "student_id": "STU005",
+    "registered_at": "2026-11-20T08:04:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0005-TOKEN"
+  },
+  {
+    "registration_id": "REG0006",
+    "event_id": "EVT002",
+    "student_id": "STU004",
+    "registered_at": "2026-11-22T08:00:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0006-TOKEN"
+  },
+  {
+    "registration_id": "REG0007",
+    "event_id": "EVT002",
+    "student_id": "STU005",
+    "registered_at": "2026-11-22T08:01:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0007-TOKEN"
+  },
+  {
+    "registration_id": "REG0008",
+    "event_id": "EVT002",
+    "student_id": "STU006",
+    "registered_at": "2026-11-22T08:02:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0008-TOKEN"
+  },
+  {
+    "registration_id": "REG0009",
+    "event_id": "EVT002",
+    "student_id": "STU007",
+    "registered_at": "2026-11-22T08:03:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0009-TOKEN"
+  },
+  {
+    "registration_id": "REG0010",
+    "event_id": "EVT002",
+    "student_id": "STU008",
+    "registered_at": "2026-11-22T08:04:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0010-TOKEN"
+  },
+  {
+    "registration_id": "REG0011",
+    "event_id": "EVT002",
+    "student_id": "STU009",
+    "registered_at": "2026-11-22T08:05:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0011-TOKEN"
+  },
+  {
+    "registration_id": "REG0012",
+    "event_id": "EVT003",
+    "student_id": "STU007",
+    "registered_at": "2026-11-25T08:00:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0012-TOKEN"
+  },
+  {
+    "registration_id": "REG0013",
+    "event_id": "EVT003",
+    "student_id": "STU008",
+    "registered_at": "2026-11-25T08:01:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0013-TOKEN"
+  },
+  {
+    "registration_id": "REG0014",
+    "event_id": "EVT003",
+    "student_id": "STU009",
+    "registered_at": "2026-11-25T08:02:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0014-TOKEN"
+  },
+  {
+    "registration_id": "REG0015",
+    "event_id": "EVT003",
+    "student_id": "STU010",
+    "registered_at": "2026-11-25T08:03:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0015-TOKEN"
+  },
+  {
+    "registration_id": "REG0016",
+    "event_id": "EVT003",
+    "student_id": "STU011",
+    "registered_at": "2026-11-25T08:04:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0016-TOKEN"
+  },
+  {
+    "registration_id": "REG0017",
+    "event_id": "EVT003",
+    "student_id": "STU012",
+    "registered_at": "2026-11-25T08:05:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0017-TOKEN"
+  },
+  {
+    "registration_id": "REG0018",
+    "event_id": "EVT003",
+    "student_id": "STU001",
+    "registered_at": "2026-11-25T08:06:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0018-TOKEN"
+  },
+  {
+    "registration_id": "REG0019",
+    "event_id": "EVT004",
+    "student_id": "STU010",
+    "registered_at": "2026-11-27T08:00:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0019-TOKEN"
+  },
+  {
+    "registration_id": "REG0020",
+    "event_id": "EVT004",
+    "student_id": "STU011",
+    "registered_at": "2026-11-27T08:01:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0020-TOKEN"
+  },
+  {
+    "registration_id": "REG0021",
+    "event_id": "EVT004",
+    "student_id": "STU012",
+    "registered_at": "2026-11-27T08:02:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0021-TOKEN"
+  },
+  {
+    "registration_id": "REG0022",
+    "event_id": "EVT004",
+    "student_id": "STU001",
+    "registered_at": "2026-11-27T08:03:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0022-TOKEN"
+  },
+  {
+    "registration_id": "REG0023",
+    "event_id": "EVT004",
+    "student_id": "STU002",
+    "registered_at": "2026-11-27T08:04:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0023-TOKEN"
+  },
+  {
+    "registration_id": "REG0024",
+    "event_id": "EVT004",
+    "student_id": "STU003",
+    "registered_at": "2026-11-27T08:05:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0024-TOKEN"
+  },
+  {
+    "registration_id": "REG0025",
+    "event_id": "EVT004",
+    "student_id": "STU004",
+    "registered_at": "2026-11-27T08:06:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0025-TOKEN"
+  },
+  {
+    "registration_id": "REG0026",
+    "event_id": "EVT004",
+    "student_id": "STU005",
+    "registered_at": "2026-11-27T08:07:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0026-TOKEN"
+  },
+  {
+    "registration_id": "REG0027",
+    "event_id": "EVT005",
+    "student_id": "STU001",
+    "registered_at": "2026-12-02T08:00:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0027-TOKEN"
+  },
+  {
+    "registration_id": "REG0028",
+    "event_id": "EVT005",
+    "student_id": "STU002",
+    "registered_at": "2026-12-02T08:01:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0028-TOKEN"
+  },
+  {
+    "registration_id": "REG0029",
+    "event_id": "EVT005",
+    "student_id": "STU003",
+    "registered_at": "2026-12-02T08:02:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0029-TOKEN"
+  },
+  {
+    "registration_id": "REG0030",
+    "event_id": "EVT005",
+    "student_id": "STU004",
+    "registered_at": "2026-12-02T08:03:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0030-TOKEN"
+  },
+  {
+    "registration_id": "REG0031",
+    "event_id": "EVT005",
+    "student_id": "STU005",
+    "registered_at": "2026-12-02T08:04:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0031-TOKEN"
+  },
+  {
+    "registration_id": "REG0032",
+    "event_id": "EVT006",
+    "student_id": "STU004",
+    "registered_at": "2026-12-04T08:00:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0032-TOKEN"
+  },
+  {
+    "registration_id": "REG0033",
+    "event_id": "EVT006",
+    "student_id": "STU005",
+    "registered_at": "2026-12-04T08:01:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0033-TOKEN"
+  },
+  {
+    "registration_id": "REG0034",
+    "event_id": "EVT006",
+    "student_id": "STU006",
+    "registered_at": "2026-12-04T08:02:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0034-TOKEN"
+  },
+  {
+    "registration_id": "REG0035",
+    "event_id": "EVT006",
+    "student_id": "STU007",
+    "registered_at": "2026-12-04T08:03:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0035-TOKEN"
+  },
+  {
+    "registration_id": "REG0036",
+    "event_id": "EVT006",
+    "student_id": "STU008",
+    "registered_at": "2026-12-04T08:04:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0036-TOKEN"
+  },
+  {
+    "registration_id": "REG0037",
+    "event_id": "EVT006",
+    "student_id": "STU009",
+    "registered_at": "2026-12-04T08:05:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0037-TOKEN"
+  },
+  {
+    "registration_id": "REG0038",
+    "event_id": "EVT007",
+    "student_id": "STU007",
+    "registered_at": "2026-12-08T08:00:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0038-TOKEN"
+  },
+  {
+    "registration_id": "REG0039",
+    "event_id": "EVT007",
+    "student_id": "STU008",
+    "registered_at": "2026-12-08T08:01:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0039-TOKEN"
+  },
+  {
+    "registration_id": "REG0040",
+    "event_id": "EVT007",
+    "student_id": "STU009",
+    "registered_at": "2026-12-08T08:02:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0040-TOKEN"
+  },
+  {
+    "registration_id": "REG0041",
+    "event_id": "EVT007",
+    "student_id": "STU010",
+    "registered_at": "2026-12-08T08:03:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0041-TOKEN"
+  },
+  {
+    "registration_id": "REG0042",
+    "event_id": "EVT007",
+    "student_id": "STU011",
+    "registered_at": "2026-12-08T08:04:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0042-TOKEN"
+  },
+  {
+    "registration_id": "REG0043",
+    "event_id": "EVT007",
+    "student_id": "STU012",
+    "registered_at": "2026-12-08T08:05:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0043-TOKEN"
+  },
+  {
+    "registration_id": "REG0044",
+    "event_id": "EVT007",
+    "student_id": "STU001",
+    "registered_at": "2026-12-08T08:06:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0044-TOKEN"
+  },
+  {
+    "registration_id": "REG0045",
+    "event_id": "EVT008",
+    "student_id": "STU010",
+    "registered_at": "2026-12-10T08:00:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0045-TOKEN"
+  },
+  {
+    "registration_id": "REG0046",
+    "event_id": "EVT008",
+    "student_id": "STU011",
+    "registered_at": "2026-12-10T08:01:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0046-TOKEN"
+  },
+  {
+    "registration_id": "REG0047",
+    "event_id": "EVT008",
+    "student_id": "STU012",
+    "registered_at": "2026-12-10T08:02:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0047-TOKEN"
+  },
+  {
+    "registration_id": "REG0048",
+    "event_id": "EVT008",
+    "student_id": "STU001",
+    "registered_at": "2026-12-10T08:03:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0048-TOKEN"
+  },
+  {
+    "registration_id": "REG0049",
+    "event_id": "EVT008",
+    "student_id": "STU002",
+    "registered_at": "2026-12-10T08:04:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0049-TOKEN"
+  },
+  {
+    "registration_id": "REG0050",
+    "event_id": "EVT008",
+    "student_id": "STU003",
+    "registered_at": "2026-12-10T08:05:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0050-TOKEN"
+  },
+  {
+    "registration_id": "REG0051",
+    "event_id": "EVT008",
+    "student_id": "STU004",
+    "registered_at": "2026-12-10T08:06:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0051-TOKEN"
+  },
+  {
+    "registration_id": "REG0052",
+    "event_id": "EVT008",
+    "student_id": "STU005",
+    "registered_at": "2026-12-10T08:07:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0052-TOKEN"
+  },
+  {
+    "registration_id": "REG0053",
+    "event_id": "EVT009",
+    "student_id": "STU001",
+    "registered_at": "2026-12-12T08:00:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0053-TOKEN"
+  },
+  {
+    "registration_id": "REG0054",
+    "event_id": "EVT009",
+    "student_id": "STU002",
+    "registered_at": "2026-12-12T08:01:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0054-TOKEN"
+  },
+  {
+    "registration_id": "REG0055",
+    "event_id": "EVT009",
+    "student_id": "STU003",
+    "registered_at": "2026-12-12T08:02:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0055-TOKEN"
+  },
+  {
+    "registration_id": "REG0056",
+    "event_id": "EVT009",
+    "student_id": "STU004",
+    "registered_at": "2026-12-12T08:03:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0056-TOKEN"
+  },
+  {
+    "registration_id": "REG0057",
+    "event_id": "EVT009",
+    "student_id": "STU005",
+    "registered_at": "2026-12-12T08:04:00",
+    "status": "CONFIRMED",
+    "qr_token": "DEMO-REG0057-TOKEN"
+  }
+]

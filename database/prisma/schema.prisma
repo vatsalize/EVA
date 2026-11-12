@@ -1,0 +1,209 @@
+// Prisma Schema for EVA: Smart College Event & Venue Management Platform
+// Supports SQLite (development) and PostgreSQL (production)
+
+datasource db {
+  provider = "sqlite" // Change to "postgresql" for production deployment
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Club {
+  clubId      String   @id @map("club_id")
+  name        String   @unique
+  category    String
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  coordinators User[]
+  events       Event[]
+
+  @@map("clubs")
+}
+
+model User {
+  userId             String   @id @map("user_id")
+  fullName           String   @map("full_name")
+  email              String   @unique
+  passwordHash       String   @map("password_hash")
+  role               String   // 'STUDENT', 'COORDINATOR', 'ADMIN'
+  clubId             String?  @map("club_id")
+  department         String?
+  yearOfStudy        Int?     @map("year_of_study")
+  isActive           Boolean  @default(true) @map("is_active")
+  isVerified         Boolean  @default(false) @map("is_verified")
+  mustChangePassword Boolean  @default(false) @map("must_change_password")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  club          Club?          @relation(fields: [clubId], references: [clubId], onDelete: SetNull)
+  events        Event[]        @relation("CoordinatorEvents")
+  bookings      Booking[]      @relation("CreatedBookings")
+  registrations Registration[]
+  checkins      Checkin[]
+  feedbacks     Feedback[]
+
+  @@map("users")
+}
+
+model Venue {
+  venueId        String   @id @map("venue_id")
+  name           String   @unique
+  building       String
+  capacity       Int
+  facilities     String   @default("[]") // JSON string of facility tags
+  operatingStart String   @default("08:00") @map("operating_start")
+  operatingEnd   String   @default("22:00") @map("operating_end")
+  status         String   @default("ACTIVE") // 'ACTIVE', 'UNDER_MAINTENANCE', 'INACTIVE'
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  bookings         Booking[]
+  events           Event[]
+  historicalUsages HistoricalVenueUsage[]
+
+  @@map("venues")
+}
+
+model Event {
+  eventId              String   @id @map("event_id")
+  title                String
+  description          String?
+  clubId               String   @map("club_id")
+  coordinatorId        String   @map("coordinator_id")
+  category             String
+  eventDate            String   @map("event_date") // YYYY-MM-DD
+  startTime            String   @map("start_time") // HH:MM
+  endTime              String   @map("end_time")   // HH:MM
+  venueId              String?  @map("venue_id")
+  registrationCapacity Int      @map("registration_capacity")
+  expectedParticipants Int      @map("expected_participants")
+  requiredFacilities   String   @default("[]") @map("required_facilities") // JSON string
+  registrationDeadline String   @map("registration_deadline") // YYYY-MM-DD
+  status               String   @default("DRAFT") // 'DRAFT', 'PUBLISHED', 'COMPLETED', 'CANCELLED'
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  club          Club           @relation(fields: [clubId], references: [clubId], onDelete: Restrict)
+  coordinator   User           @relation("CoordinatorEvents", fields: [coordinatorId], references: [userId], onDelete: Restrict)
+  venue         Venue?         @relation(fields: [venueId], references: [venueId], onDelete: SetNull)
+  bookings      Booking[]
+  registrations Registration[]
+  checkins      Checkin[]
+  feedbacks     Feedback[]
+
+  @@map("events")
+}
+
+model Booking {
+  bookingId   String   @id @map("booking_id")
+  eventId     String   @map("event_id")
+  venueId     String   @map("venue_id")
+  bookingDate String   @map("booking_date") // YYYY-MM-DD
+  startTime   String   @map("start_time")   // HH:MM
+  endTime     String   @map("end_time")     // HH:MM
+  status      String   @default("CONFIRMED") // 'CONFIRMED', 'CANCELLED', 'PENDING'
+  createdBy   String   @map("created_by")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  event   Event @relation(fields: [eventId], references: [eventId], onDelete: Cascade)
+  venue   Venue @relation(fields: [venueId], references: [venueId], onDelete: Restrict)
+  creator User  @relation("CreatedBookings", fields: [createdBy], references: [userId], onDelete: Restrict)
+
+  @@index([venueId, bookingDate, status])
+  @@map("bookings")
+}
+
+model Registration {
+  registrationId String   @id @map("registration_id")
+  eventId        String   @map("event_id")
+  studentId      String   @map("student_id")
+  qrToken        String   @unique @map("qr_token")
+  registeredAt   DateTime @default(now()) @map("registered_at")
+  status         String   @default("CONFIRMED") // 'CONFIRMED', 'CANCELLED'
+
+  event   Event    @relation(fields: [eventId], references: [eventId], onDelete: Cascade)
+  student User     @relation(fields: [studentId], references: [userId], onDelete: Cascade)
+  checkin Checkin?
+
+  @@unique([eventId, studentId])
+  @@map("registrations")
+}
+
+model Checkin {
+  checkinId      String   @id @map("checkin_id")
+  registrationId String   @unique @map("registration_id")
+  eventId        String   @map("event_id")
+  studentId      String   @map("student_id")
+  scannedAt      DateTime @default(now()) @map("scanned_at")
+  scanStatus     String   @default("ACCEPTED") @map("scan_status")
+  scannerId      String   @default("SCANNER-DEMO-01") @map("scanner_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  registration Registration @relation(fields: [registrationId], references: [registrationId], onDelete: Cascade)
+  event        Event        @relation(fields: [eventId], references: [eventId], onDelete: Cascade)
+  student      User         @relation(fields: [studentId], references: [userId], onDelete: Cascade)
+
+  @@map("checkins")
+}
+
+model Feedback {
+  feedbackId         String   @id @map("feedback_id")
+  eventId            String   @map("event_id")
+  studentId          String   @map("student_id")
+  overallRating      Int      @map("overall_rating")
+  organizationRating Int      @map("organization_rating")
+  venueRating        Int      @map("venue_rating")
+  comments           String?
+  submittedAt        DateTime @default(now()) @map("submitted_at")
+
+  event   Event @relation(fields: [eventId], references: [eventId], onDelete: Cascade)
+  student User  @relation(fields: [studentId], references: [userId], onDelete: Cascade)
+
+  @@unique([eventId, studentId])
+  @@map("feedback")
+}
+
+model HistoricalVenueUsage {
+  usageId              String   @id @map("usage_id")
+  eventDate            String   @map("event_date")
+  eventCategory        String   @map("event_category")
+  venueId              String   @map("venue_id")
+  venueCapacity        Int      @map("venue_capacity")
+  expectedParticipants Int      @map("expected_participants")
+  actualFootfall       Int      @map("actual_footfall")
+  facilitiesUsed       String   @map("facilities_used")
+  durationHours        Float    @map("duration_hours")
+  createdAt            DateTime @default(now()) @map("created_at")
+
+  venue Venue @relation(fields: [venueId], references: [venueId], onDelete: Restrict)
+
+  @@index([venueId])
+  @@map("historical_venue_usage")
+}
+
+model SystemConfig {
+  configKey   String   @id @map("config_key")
+  configValue String   @map("config_value")
+  description String?
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("system_config")
+}
+
+model AcademicCalendar {
+  calendarId       String  @id @map("calendar_id")
+  name             String
+  startDate        String  @map("start_date")
+  endDate          String  @map("end_date")
+  holidays         String  @default("[]") // JSON string of dates
+  examPeriodStart  String  @map("exam_period_start")
+  examPeriodEnd    String  @map("exam_period_end")
+  isDemo           Boolean @default(true) @map("is_demo")
+
+  @@map("academic_calendar")
+}

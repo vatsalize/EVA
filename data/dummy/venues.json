@@ -1,0 +1,124 @@
+[
+  {
+    "venue_id": "VEN001",
+    "name": "Main Auditorium",
+    "building": "Central Campus",
+    "capacity": 500,
+    "facilities": [
+      "projector",
+      "sound_system",
+      "microphone",
+      "air_conditioning",
+      "stage",
+      "wifi"
+    ],
+    "operating_start": "08:00",
+    "operating_end": "22:00",
+    "status": "ACTIVE"
+  },
+  {
+    "venue_id": "VEN002",
+    "name": "Lecture Theatre 101",
+    "building": "Academic Block A",
+    "capacity": 120,
+    "facilities": [
+      "projector",
+      "microphone",
+      "air_conditioning",
+      "wifi"
+    ],
+    "operating_start": "08:00",
+    "operating_end": "20:00",
+    "status": "ACTIVE"
+  },
+  {
+    "venue_id": "VEN003",
+    "name": "Lecture Theatre 102",
+    "building": "Academic Block A",
+    "capacity": 100,
+    "facilities": [
+      "projector",
+      "microphone",
+      "air_conditioning",
+      "wifi"
+    ],
+    "operating_start": "08:00",
+    "operating_end": "20:00",
+    "status": "ACTIVE"
+  },
+  {
+    "venue_id": "VEN004",
+    "name": "Seminar Hall",
+    "building": "Academic Block B",
+    "capacity": 80,
+    "facilities": [
+      "projector",
+      "sound_system",
+      "air_conditioning",
+      "wifi"
+    ],
+    "operating_start": "09:00",
+    "operating_end": "20:00",
+    "status": "ACTIVE"
+  },
+  {
+    "venue_id": "VEN005",
+    "name": "Conference Room",
+    "building": "Administration Block",
+    "capacity": 40,
+    "facilities": [
+      "display_screen",
+      "video_conferencing",
+      "air_conditioning",
+      "wifi"
+    ],
+    "operating_start": "09:00",
+    "operating_end": "18:00",
+    "status": "ACTIVE"
+  },
+  {
+    "venue_id": "VEN006",
+    "name": "Open Air Theatre",
+    "building": "Central Campus",
+    "capacity": 300,
+    "facilities": [
+      "stage",
+      "sound_system",
+      "microphone",
+      "outdoor_power"
+    ],
+    "operating_start": "16:00",
+    "operating_end": "22:00",
+    "status": "ACTIVE"
+  },
+  {
+    "venue_id": "VEN007",
+    "name": "Innovation Lab Hall",
+    "building": "Technology Block",
+    "capacity": 60,
+    "facilities": [
+      "projector",
+      "wifi",
+      "power_outlets",
+      "worktables"
+    ],
+    "operating_start": "09:00",
+    "operating_end": "19:00",
+    "status": "ACTIVE"
+  },
+  {
+    "venue_id": "VEN008",
+    "name": "Multipurpose Hall",
+    "building": "Activities Complex",
+    "capacity": 200,
+    "facilities": [
+      "sound_system",
+      "microphone",
+      "air_conditioning",
+      "stage"
+    ],
+    "operating_start": "08:00",
+    "operating_end": "21:00",
+    "status": "ACTIVE"
+  }
+]

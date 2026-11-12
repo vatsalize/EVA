@@ -1,0 +1,98 @@
+[
+  {
+    "student_id": "STU001",
+    "full_name": "Ishita Singh",
+    "email": "ishita.singh@student.eva-demo.test",
+    "department": "Computer Engineering",
+    "year_of_study": 2,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU002",
+    "full_name": "Aditya Khanna",
+    "email": "aditya.khanna@student.eva-demo.test",
+    "department": "Electronics Engineering",
+    "year_of_study": 3,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU003",
+    "full_name": "Meera Joshi",
+    "email": "meera.joshi@student.eva-demo.test",
+    "department": "Computer Engineering",
+    "year_of_study": 4,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU004",
+    "full_name": "Rohan Bhatia",
+    "email": "rohan.bhatia@student.eva-demo.test",
+    "department": "Mechanical Engineering",
+    "year_of_study": 1,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU005",
+    "full_name": "Sana Ali",
+    "email": "sana.ali@student.eva-demo.test",
+    "department": "Electrical Engineering",
+    "year_of_study": 2,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU006",
+    "full_name": "Arjun Malhotra",
+    "email": "arjun.malhotra@student.eva-demo.test",
+    "department": "Computer Engineering",
+    "year_of_study": 3,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU007",
+    "full_name": "Naina Sethi",
+    "email": "naina.sethi@student.eva-demo.test",
+    "department": "Civil Engineering",
+    "year_of_study": 4,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU008",
+    "full_name": "Vivaan Kapoor",
+    "email": "vivaan.kapoor@student.eva-demo.test",
+    "department": "Computer Engineering",
+    "year_of_study": 1,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU009",
+    "full_name": "Aisha Khan",
+    "email": "aisha.khan@student.eva-demo.test",
+    "department": "Chemical Engineering",
+    "year_of_study": 2,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU010",
+    "full_name": "Krish Patel",
+    "email": "krish.patel@student.eva-demo.test",
+    "department": "Electronics Engineering",
+    "year_of_study": 3,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU011",
+    "full_name": "Tara Menon",
+    "email": "tara.menon@student.eva-demo.test",
+    "department": "Computer Engineering",
+    "year_of_study": 4,
+    "is_verified": true
+  },
+  {
+    "student_id": "STU012",
+    "full_name": "Devansh Rao",
+    "email": "devansh.rao@student.eva-demo.test",
+    "department": "Mechanical Engineering",
+    "year_of_study": 1,
+    "is_verified": true
+  }
+]

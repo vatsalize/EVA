@@ -1,0 +1,191 @@
+[
+  {
+    "event_id": "EVT001",
+    "title": "CodeSprint 2026",
+    "description": "Demo technical event: CodeSprint 2026.",
+    "club_id": "CLB001",
+    "category": "Technical",
+    "event_date": "2026-11-20",
+    "start_time": "09:00",
+    "end_time": "18:00",
+    "registration_capacity": 150,
+    "expected_participants": 180,
+    "required_facilities": [
+      "wifi",
+      "projector",
+      "power_outlets"
+    ],
+    "registration_deadline": "2026-11-18",
+    "status": "PUBLISHED"
+  },
+  {
+    "event_id": "EVT002",
+    "title": "RoboRumble",
+    "description": "Demo technical event: RoboRumble.",
+    "club_id": "CLB002",
+    "category": "Technical",
+    "event_date": "2026-11-22",
+    "start_time": "10:00",
+    "end_time": "16:00",
+    "registration_capacity": 90,
+    "expected_participants": 100,
+    "required_facilities": [
+      "projector",
+      "power_outlets",
+      "worktables"
+    ],
+    "registration_deadline": "2026-11-20",
+    "status": "PUBLISHED"
+  },
+  {
+    "event_id": "EVT003",
+    "title": "Swaranjali Night",
+    "description": "Demo cultural event: Swaranjali Night.",
+    "club_id": "CLB003",
+    "category": "Cultural",
+    "event_date": "2026-11-25",
+    "start_time": "17:00",
+    "end_time": "21:00",
+    "registration_capacity": 240,
+    "expected_participants": 280,
+    "required_facilities": [
+      "stage",
+      "sound_system",
+      "microphone"
+    ],
+    "registration_deadline": "2026-11-23",
+    "status": "PUBLISHED"
+  },
+  {
+    "event_id": "EVT004",
+    "title": "Words in Motion",
+    "description": "Demo literary event: Words in Motion.",
+    "club_id": "CLB004",
+    "category": "Literary",
+    "event_date": "2026-11-27",
+    "start_time": "10:00",
+    "end_time": "15:00",
+    "registration_capacity": 65,
+    "expected_participants": 75,
+    "required_facilities": [
+      "projector",
+      "microphone",
+      "wifi"
+    ],
+    "registration_deadline": "2026-11-25",
+    "status": "PUBLISHED"
+  },
+  {
+    "event_id": "EVT005",
+    "title": "Startup Catalyst",
+    "description": "Demo entrepreneurship event: Startup Catalyst.",
+    "club_id": "CLB005",
+    "category": "Entrepreneurship",
+    "event_date": "2026-12-02",
+    "start_time": "11:00",
+    "end_time": "16:00",
+    "registration_capacity": 35,
+    "expected_participants": 40,
+    "required_facilities": [
+      "display_screen",
+      "video_conferencing",
+      "wifi"
+    ],
+    "registration_deadline": "2026-11-30",
+    "status": "PUBLISHED"
+  },
+  {
+    "event_id": "EVT006",
+    "title": "Frames of Campus",
+    "description": "Demo creative event: Frames of Campus.",
+    "club_id": "CLB006",
+    "category": "Creative",
+    "event_date": "2026-12-04",
+    "start_time": "12:00",
+    "end_time": "18:00",
+    "registration_capacity": 55,
+    "expected_participants": 60,
+    "required_facilities": [
+      "projector",
+      "wifi"
+    ],
+    "registration_deadline": "2026-12-02",
+    "status": "PUBLISHED"
+  },
+  {
+    "event_id": "EVT007",
+    "title": "Open Source Day",
+    "description": "Demo technical event: Open Source Day.",
+    "club_id": "CLB001",
+    "category": "Technical",
+    "event_date": "2026-12-08",
+    "start_time": "09:30",
+    "end_time": "17:00",
+    "registration_capacity": 110,
+    "expected_participants": 130,
+    "required_facilities": [
+      "projector",
+      "wifi",
+      "power_outlets"
+    ],
+    "registration_deadline": "2026-12-06",
+    "status": "PUBLISHED"
+  },
+  {
+    "event_id": "EVT008",
+    "title": "Bot Builders Workshop",
+    "description": "Demo technical event: Bot Builders Workshop.",
+    "club_id": "CLB002",
+    "category": "Technical",
+    "event_date": "2026-12-10",
+    "start_time": "10:00",
+    "end_time": "13:00",
+    "registration_capacity": 45,
+    "expected_participants": 50,
+    "required_facilities": [
+      "projector",
+      "power_outlets",
+      "worktables"
+    ],
+    "registration_deadline": "2026-12-08",
+    "status": "PUBLISHED"
+  },
+  {
+    "event_id": "EVT009",
+    "title": "Campus Theatre Evening",
+    "description": "Demo cultural event: Campus Theatre Evening.",
+    "club_id": "CLB003",
+    "category": "Cultural",
+    "event_date": "2026-12-12",
+    "start_time": "17:00",
+    "end_time": "20:30",
+    "registration_capacity": 180,
+    "expected_participants": 200,
+    "required_facilities": [
+      "stage",
+      "sound_system",
+      "microphone"
+    ],
+    "registration_deadline": "2026-12-10",
+    "status": "PUBLISHED"
+  },
+  {
+    "event_id": "EVT010",
+    "title": "Design Your Story",
+    "description": "Demo creative event: Design Your Story.",
+    "club_id": "CLB006",
+    "category": "Creative",
+    "event_date": "2026-12-15",
+    "start_time": "14:00",
+    "end_time": "17:00",
+    "registration_capacity": 40,
+    "expected_participants": 50,
+    "required_facilities": [
+      "projector",
+      "wifi",
+      "worktables"
+    ],
+    "registration_deadline": "2026-12-13",
+    "status": "DRAFT"
+  }
+]

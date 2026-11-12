@@ -1,0 +1,13 @@
+{
+  "timezone": "Asia/Kolkata",
+  "minimum_advance_booking_hours": 24,
+  "maximum_booking_duration_hours": 8,
+  "buffer_between_events_minutes": 30,
+  "allow_overlapping_bookings": false,
+  "coordinator_confirmation_required": true,
+  "coordinator_can_manage_only_assigned_club": true,
+  "registration_requires_published_event": true,
+  "prevent_duplicate_registration": true,
+  "prevent_duplicate_qr_checkin": true,
+  "demo_only": true
+}

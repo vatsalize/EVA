@@ -1,0 +1,56 @@
+[
+  {
+    "coordinator_id": "COO001",
+    "full_name": "Aarav Sharma",
+    "email": "aarav.sharma@eva-demo.test",
+    "club_id": "CLB001",
+    "role": "COORDINATOR",
+    "is_active": true,
+    "must_change_password": true
+  },
+  {
+    "coordinator_id": "COO002",
+    "full_name": "Diya Verma",
+    "email": "diya.verma@eva-demo.test",
+    "club_id": "CLB002",
+    "role": "COORDINATOR",
+    "is_active": true,
+    "must_change_password": true
+  },
+  {
+    "coordinator_id": "COO003",
+    "full_name": "Kabir Mehta",
+    "email": "kabir.mehta@eva-demo.test",
+    "club_id": "CLB003",
+    "role": "COORDINATOR",
+    "is_active": true,
+    "must_change_password": true
+  },
+  {
+    "coordinator_id": "COO004",
+    "full_name": "Ananya Rao",
+    "email": "ananya.rao@eva-demo.test",
+    "club_id": "CLB004",
+    "role": "COORDINATOR",
+    "is_active": true,
+    "must_change_password": true
+  },
+  {
+    "coordinator_id": "COO005",
+    "full_name": "Reyansh Gupta",
+    "email": "reyansh.gupta@eva-demo.test",
+    "club_id": "CLB005",
+    "role": "COORDINATOR",
+    "is_active": true,
+    "must_change_password": true
+  },
+  {
+    "coordinator_id": "COO006",
+    "full_name": "Myra Kapoor",
+    "email": "myra.kapoor@eva-demo.test",
+    "club_id": "CLB006",
+    "role": "COORDINATOR",
+    "is_active": true,
+    "must_change_password": true
+  }
+]
