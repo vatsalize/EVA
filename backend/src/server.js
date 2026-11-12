@@ -79,7 +79,7 @@ const PORT = env.PORT;
 
 // Start server if executed directly
 if (process.argv[1] && process.argv[1].endsWith('server.js')) {
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log('====================================================');
     console.log(`  EVA Platform Backend Server running on port ${PORT}`);
     console.log(`  Full-Stack Application: http://localhost:${PORT}`);
@@ -87,6 +87,28 @@ if (process.argv[1] && process.argv[1].endsWith('server.js')) {
     console.log(`  Environment: ${env.NODE_ENV}`);
     console.log('====================================================');
   });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`\n[Server Error] Port ${PORT} is already in use by another process.`);
+      console.error(`Please stop the existing process on port ${PORT} or configure PORT in your .env file.\n`);
+      process.exit(1);
+    } else {
+      console.error('\n[Server Error] Failed to start server:', err);
+      process.exit(1);
+    }
+  });
+
+  const shutdown = (signal) => {
+    console.log(`\n[Server] Received ${signal}. Shutting down gracefully...`);
+    server.close(() => {
+      console.log('[Server] Active connections closed. Goodbye!');
+      process.exit(0);
+    });
+  };
+
+  process.on('SIGINT', () => shutdown('SIGINT'));
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
 }
 
 export default app;

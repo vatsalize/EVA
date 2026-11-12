@@ -133,117 +133,90 @@ Pre-seeded students use the password: **`Student@2026`**
 
 ---
 
-## 6. How to Clone & Run the Application (Team Quickstart)
+## 6. Zero-Config Team Quickstart (Single-Command Setup)
 
-### 6.1 Prerequisites
-- **Node.js**: v20.0.0 or higher
-- **npm**: v10.0.0 or higher
-- **Python**: v3.10 or higher with standard libraries
-- **Git**: Installed and configured
+EVA features a fully automated pre-flight setup engine. Teammates do **not** need to manually copy `.env` files, run multiple install commands across different folders, manually run database migrations, or execute separate frontend builds.
 
-### 6.2 Clone the Repository
-```bash
-git clone https://github.com/vatsalize/EVA.git
-cd EVA
-```
-
-### 6.3 Configure Environment Variables
-Copy the template environment file to `.env`:
-```bash
-# Windows PowerShell
-copy .env.example .env
-
-# macOS / Linux
-cp .env.example .env
-```
-*(The defaults are pre-configured for instant zero-configuration local development).*
-
-### 6.4 Install Dependencies
-Install dependencies for both the backend and frontend:
-```bash
-# Backend dependencies
-cd backend
-npm install
-
-# Frontend dependencies
-cd ../frontend
-npm install
-
-# Return to project root
-cd ..
-```
-
-### 6.5 Database Initialization & Management Commands
-
-Choose the command matching your environment and workflow:
-
-#### A. Safe First-Time Setup (Schema-Only, Non-Destructive)
-For production or clean setups where you only want to initialize relational tables and indexes without inserting any mock/demo records:
-```bash
-python database/seed.py --init-only
-```
-
-#### B. Normal Development Seeding (Non-Destructive & Idempotent)
-For everyday development. Populates missing baseline clubs, venues, and demo accounts without modifying or deleting any existing student accounts or custom events:
-```bash
-python database/seed.py
-```
-*(Idempotent: safe to run repeatedly; never creates duplicate records).*
-
-#### C. Database Snapshot Backup
-Creates an instant timestamped backup in `database/backups/`:
-```bash
-python database/seed.py --backup
-```
-
-#### D. Development Reset (Destructive, Development-Only)
-Wipes and restores the database to the pristine demo state. Automatically takes a backup snapshot first and prompts for confirmation (blocked automatically in production):
-```bash
-# Interactive mode (with confirmation prompt)
-python database/seed.py --reset
-
-# Non-interactive mode (for automated CI/test scripts)
-python database/seed.py --reset --force
-```
-
-#### E. Database Verification (Strictly Read-Only)
-Runs 9 comprehensive verification tests (foreign keys, duplicate constraints, password hashes, and analytics) with guaranteed rollback:
-```bash
-python database/verify_database.py
-```
+### 5-Step Quickstart:
+1. **Install Prerequisites:** Ensure [Node.js](https://nodejs.org/) (v20+) and [Python](https://www.python.org/) (v3.10+) are installed.
+2. **Clone the repository:**
+   ```bash
+   git clone https://github.com/vatsalize/EVA.git
+   cd EVA
+   ```
+3. **Open the backend directory:**
+   ```bash
+   cd backend
+   ```
+4. **Execute `npm start`:**
+   ```bash
+   npm start
+   ```
+5. **Open your browser:**
+   Navigate to **`http://localhost:5000`** — the full application is live!
 
 ---
 
-## 7. Running the Application
-
-### Option A — Single-Command Full-Stack Deployment (Recommended)
-The Express server is configured to serve the production React SPA:
-
-```bash
-cd backend
-npm start
-```
-Open **`http://localhost:5000`** in your browser. The entire application is live!
+### What `npm start` Handles Automatically:
+1. **Automatic Environment Configuration (`.env`):**
+   - Detects if root `.env` or `backend/.env` is missing.
+   - Automatically initializes them from `.env.example` templates with zero-config local development defaults.
+   - Never overwrites an existing `.env` file.
+2. **Automatic Dependency Verification & Installation:**
+   - Verifies backend dependencies (`express`, `cors`, `dotenv`, `jsonwebtoken`, `bcryptjs`, `qrcode`).
+   - Verifies frontend dependencies (`react`, `react-dom`, `vite`, `tailwindcss`, `lucide-react`, `recharts`).
+   - Performs clean, deterministic installation via `npm ci` without touching `package-lock.json`.
+   - Never reinstalls dependencies unnecessarily on subsequent startups.
+3. **Automatic Non-Destructive Database Setup:**
+   - Checks whether `database/eva.db` exists.
+   - If missing, automatically runs `python database/seed.py --init-only` followed by `python database/seed.py`.
+   - If the database already exists, it is **never reset or overwritten**; existing student accounts, coordinator profiles, events, bookings, registrations, check-ins, and feedback are 100% preserved.
+4. **Automatic Frontend Production Build:**
+   - Checks if `frontend/dist` is present and up-to-date with frontend source files.
+   - If missing or outdated, builds the production bundle with Vite (`npm run build`).
+   - Rebuilding is skipped on subsequent startups when assets are current.
+5. **Full-Stack Express Serving:**
+   - Express serves both the REST API (`/api/*`) and the React SPA with non-cached routing and graceful shutdown (`Ctrl+C`).
 
 ---
 
-### Option B — Concurrent Development Mode (Hot-Reloading)
-For active development with live code reloads:
+### One-Time Configuration (Production / Staging)
+While local development works out-of-the-box with zero configuration, the following settings can be customized in `.env`:
+- **`JWT_SECRET`**: Set a cryptographically secure random string before deploying to production.
+- **`PORT`**: Defaults to `5000`. If port 5000 is occupied, set a custom port (e.g., `PORT=5001`).
+- **`INSTITUTE_DOMAIN`**: Restricts student self-signup to the college domain (defaults to `thapar.edu`).
+- **`ALLOW_DEMO_EMAILS`**: Allows demo accounts (`@eva-demo.test`) for local offline evaluation.
 
-**Terminal 1 (Backend API Server):**
+---
+
+### Alternative: Concurrent Development Mode (Hot-Reloading)
+For teammates actively editing UI components or backend API controllers who prefer hot-reloading:
+
+**Terminal 1 (Backend API):**
 ```bash
 cd backend
 npm run dev
-# Running on http://localhost:5000
+# Live reloads backend at http://localhost:5000
 ```
 
 **Terminal 2 (Frontend Dev Server):**
 ```bash
 cd frontend
 npm run dev
-# Running on http://localhost:3000
+# Live reloads UI at http://localhost:3000 (proxies /api to 5000)
 ```
-Open **`http://localhost:3000`** in your browser. All `/api` requests are automatically proxied to port 5000.
+
+---
+
+### Database Management Commands (Advanced / Testing)
+
+| Task | Command | Description |
+| :--- | :--- | :--- |
+| **Schema Only** | `python database/seed.py --init-only` | Creates tables and indexes; zero demo data inserted. |
+| **Safe Demo Seed** | `python database/seed.py` | Non-destructive; inserts missing demo fixtures without overwriting user data. |
+| **Backup Snapshot** | `python database/seed.py --backup` | Saves timestamped `.bak` snapshot to `database/backups/`. |
+| **Verify Integrity** | `python database/verify_database.py` | Read-only test suite executing 9 foreign key and business rule checks. |
+| **Dev-Only Reset** | `python database/seed.py --reset` | Backs up first, prompts confirmation, then resets fixtures (blocked in production). |
 
 ---
 
