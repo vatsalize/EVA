@@ -84,20 +84,54 @@ Eva/
 
 ---
 
-## 4. Seeding & Verification
+## 4. Database Setup & Management Workflows
 
-### Running the Seed Script
-To reseed or switch data sources:
+### 4.1 First-Time Schema Initialization (Non-Destructive, Schema-Only)
+For production or clean environments where you only want to create the relational tables, indexes, and constraints without inserting any dummy/demo records:
 ```bash
-# Seed with default dummy data
-python database/seed.py --reset
+python database/seed.py --init-only
+```
+- Safe to run on existing databases: uses `CREATE TABLE IF NOT EXISTS`.
+- Never drops or alters existing data.
 
-# Seed with real college data when ready
-python database/seed.py --data-dir data/production --reset
+### 4.2 Normal Development Seeding (Non-Destructive, Idempotent)
+For everyday development. Inserts missing baseline demo fixtures (clubs, venues, initial coordinators, sample events) without overwriting or deleting any existing student accounts:
+```bash
+python database/seed.py
+```
+- **Preserves all user accounts:** Any student who signed up or any custom event created remains 100% untouched.
+- **Idempotent:** Running it 1 time or 100 times produces zero duplicate rows.
+- **Data Source Selection:** To seed production data templates instead of dummy data:
+  ```bash
+  python database/seed.py --data-dir data/production
+  ```
+
+### 4.3 Database Backup Command
+Creates an atomic, timestamped snapshot in `database/backups/`:
+```bash
+python database/seed.py --backup
+# Output: [Backup] Created snapshot at: database/backups/eva_backup_YYYYMMDD_HHMMSS.db
 ```
 
-### Running the Verification Test Suite
+### 4.4 Development/Test Reset (Destructive, Development-Only)
+Wipes and restores the database to the pristine initial demo state for testing:
 ```bash
+# Interactive mode (creates backup first, prompts for confirmation)
+python database/seed.py --reset
+
+# Non-interactive mode (for automated CI/test scripts)
+python database/seed.py --reset --force
+```
+- **Production Lock:** Automatically blocked if `NODE_ENV=production` or `EVA_ENV=production` or `--production` is active.
+- **Auto-Backup:** Automatically creates a backup snapshot in `database/backups/` before dropping any tables.
+
+### 4.5 Database Verification Suite (Strictly Read-Only)
+Runs 9 comprehensive verification tests (schema constraints, password hashes, foreign keys, duplicate rejection, and analytics):
+```bash
+python database/verify_database.py
+```
+- **100% Read-Only:** All constraint probe tests execute inside transaction savepoints with guaranteed rollback.
+- Never commits or modifies any database records.
 python database/verify_database.py
 ```
 This tests:

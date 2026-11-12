@@ -173,12 +173,41 @@ npm install
 cd ..
 ```
 
-### 6.5 Initialize the Database & Seed Demo Data
-Seed the relational database with safe fixtures (clubs, venues, coordinator/student accounts, and historical usage):
+### 6.5 Database Initialization & Management Commands
+
+Choose the command matching your environment and workflow:
+
+#### A. Safe First-Time Setup (Schema-Only, Non-Destructive)
+For production or clean setups where you only want to initialize relational tables and indexes without inserting any mock/demo records:
 ```bash
-python database/seed.py --reset
+python database/seed.py --init-only
 ```
-To verify that all tables, foreign keys, and unique constraints are healthy:
+
+#### B. Normal Development Seeding (Non-Destructive & Idempotent)
+For everyday development. Populates missing baseline clubs, venues, and demo accounts without modifying or deleting any existing student accounts or custom events:
+```bash
+python database/seed.py
+```
+*(Idempotent: safe to run repeatedly; never creates duplicate records).*
+
+#### C. Database Snapshot Backup
+Creates an instant timestamped backup in `database/backups/`:
+```bash
+python database/seed.py --backup
+```
+
+#### D. Development Reset (Destructive, Development-Only)
+Wipes and restores the database to the pristine demo state. Automatically takes a backup snapshot first and prompts for confirmation (blocked automatically in production):
+```bash
+# Interactive mode (with confirmation prompt)
+python database/seed.py --reset
+
+# Non-interactive mode (for automated CI/test scripts)
+python database/seed.py --reset --force
+```
+
+#### E. Database Verification (Strictly Read-Only)
+Runs 9 comprehensive verification tests (foreign keys, duplicate constraints, password hashes, and analytics) with guaranteed rollback:
 ```bash
 python database/verify_database.py
 ```

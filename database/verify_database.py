@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """
-EVA Database Verification & Test Script
-=======================================
+EVA Database Verification & Test Script (Strictly Read-Only)
+============================================================
 Verifies database integrity, schema constraints, business rules,
-and analytics queries as specified in the SRS and Proposal.
+and analytics queries as specified in the SRS.
+
+Guarantees 100% read-only safety: any constraint tests operate in
+isolated rollback blocks, ensuring no records are ever written or modified.
 """
 
 import os
@@ -12,9 +15,13 @@ import json
 import sqlite3
 import hashlib
 import binascii
+import argparse
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "eva.db")
-INVENTORY_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "dummy", "DATA_INVENTORY.json")
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
+
+DEFAULT_DB_PATH = os.path.join(SCRIPT_DIR, "eva.db")
+DEFAULT_INVENTORY_PATH = os.path.join(PROJECT_ROOT, "data", "dummy", "DATA_INVENTORY.json")
 
 
 def verify_password(stored_hash: str, password: str) -> bool:
@@ -31,27 +38,28 @@ def verify_password(stored_hash: str, password: str) -> bool:
         return False
 
 
-def run_verification():
+def run_verification(db_path: str = DEFAULT_DB_PATH, strict_counts: bool = False):
     print("================================================================")
-    print("EVA Database Verification & Validation Suite")
-    print(f"Database File: {DB_PATH}")
+    print("EVA Database Verification & Validation Suite (Read-Only)")
+    print(f"Target Database : {os.path.abspath(db_path)}")
+    print(f"Strict Counts   : {'ENABLED (Requires pristine count match)' if strict_counts else 'DISABLED (Verifies baseline records exist)'}")
     print("================================================================")
 
-    if not os.path.exists(DB_PATH):
-        print(f"ERROR: Database file does not exist at {DB_PATH}", file=sys.stderr)
+    if not os.path.exists(db_path):
+        print(f"ERROR: Database file does not exist at {db_path}", file=sys.stderr)
         sys.exit(1)
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(db_path)
     conn.execute("PRAGMA foreign_keys = ON;")
     cursor = conn.cursor()
 
     errors = []
 
-    # 1. Inventory counts test
-    print("\n--- Test 1: Record Counts against DATA_INVENTORY.json ---")
+    # 1. Inventory & Record Health Check
+    print("\n--- Test 1: Record Counts against Base Inventory ---")
     inventory = {}
-    if os.path.exists(INVENTORY_PATH):
-        with open(INVENTORY_PATH, "r", encoding="utf-8") as f:
+    if os.path.exists(DEFAULT_INVENTORY_PATH):
+        with open(DEFAULT_INVENTORY_PATH, "r", encoding="utf-8") as f:
             inventory = json.load(f)
 
     tables_to_check = [
@@ -69,19 +77,24 @@ def run_verification():
         cursor.execute(f"SELECT COUNT(*) FROM {table}")
         count = cursor.fetchone()[0]
         expected = inventory.get(inv_key)
-        print(f"  {table:25}: {count:3} rows (Expected from inventory: {expected})")
-        if expected is not None and count != expected:
-            errors.append(f"Count mismatch in {table}: expected {expected}, got {count}")
+        
+        status_str = "MATCH" if count == expected else ("ACTIVE (Additional records present)" if count > expected else "UNDERFLOW")
+        print(f"  {table:25}: {count:3} rows (Baseline: {expected}) -> {status_str}")
+        
+        if strict_counts and expected is not None and count != expected:
+            errors.append(f"Strict count mismatch in {table}: expected exactly {expected}, got {count}")
+        elif expected is not None and count < expected:
+            errors.append(f"Missing expected baseline data in {table}: expected at least {expected}, got {count}")
 
     # Check coordinators and students count in users table
     cursor.execute("SELECT COUNT(*) FROM users WHERE role = 'COORDINATOR'")
     coordinators_count = cursor.fetchone()[0]
     cursor.execute("SELECT COUNT(*) FROM users WHERE role = 'STUDENT'")
     students_count = cursor.fetchone()[0]
-    print(f"  users (coordinators)     : {coordinators_count:3} rows (Expected: {inventory.get('coordinators')})")
-    print(f"  users (students)         : {students_count:3} rows (Expected: {inventory.get('students')})")
+    print(f"  users (coordinators)     : {coordinators_count:3} rows (Baseline: {inventory.get('coordinators')})")
+    print(f"  users (students)         : {students_count:3} rows (Baseline: {inventory.get('students')})")
 
-    # 2. Authentication Password Verification Test
+    # 2. Authentication Password Verification Test (Read-Only)
     print("\n--- Test 2: Demo Password Hashing & Verification ---")
     cursor.execute("SELECT user_id, password_hash, role FROM users WHERE user_id IN ('COO001', 'STU001')")
     users = cursor.fetchall()
@@ -92,7 +105,7 @@ def run_verification():
         if not valid:
             errors.append(f"Password verification failed for user {uid}")
 
-    # 3. Foreign Key Integrity Test
+    # 3. Foreign Key Integrity Test (Read-Only)
     print("\n--- Test 3: Foreign Key Integrity Check (PRAGMA foreign_key_check) ---")
     fk_errors = cursor.execute("PRAGMA foreign_key_check;").fetchall()
     if fk_errors:
@@ -101,50 +114,56 @@ def run_verification():
     else:
         print("  PASSED: Zero foreign key violations. All references exist and are valid.")
 
-    # 4. Duplicate Registration Prevention Test
-    print("\n--- Test 4: Business Rule - Prevent Duplicate Registration ---")
+    # 4. Duplicate Registration Prevention Test (Transaction-Safe, Guarantees Rollback)
+    print("\n--- Test 4: Business Rule - Prevent Duplicate Registration (Transaction-Safe) ---")
     try:
-        # Try inserting duplicate registration for REG0001 (EVT001, STU001)
+        cursor.execute("SAVEPOINT test_dup_reg;")
         cursor.execute("""
             INSERT INTO registrations (registration_id, event_id, student_id, qr_token, registered_at, status)
-            VALUES ('REG_TEST_DUP', 'EVT001', 'STU001', 'UNIQUE_TOKEN_TEST', datetime('now'), 'CONFIRMED')
+            VALUES ('REG_TEST_PROBE', 'EVT001', 'STU001', 'PROBE_TOKEN_1', datetime('now'), 'CONFIRMED')
         """)
-        conn.commit()
         errors.append("Constraint violation failed: Allowed duplicate student registration for same event!")
         print("  FAILED: Unique constraint on (event_id, student_id) did not fire.")
     except sqlite3.IntegrityError as e:
         print(f"  PASSED: Duplicate registration correctly prevented by database constraint: {e}")
+    finally:
+        cursor.execute("ROLLBACK TO SAVEPOINT test_dup_reg;")
+        cursor.execute("RELEASE SAVEPOINT test_dup_reg;")
 
-    # 5. Duplicate Check-in Prevention Test
-    print("\n--- Test 5: Business Rule - Prevent Duplicate QR Check-In ---")
+    # 5. Duplicate Check-in Prevention Test (Transaction-Safe, Guarantees Rollback)
+    print("\n--- Test 5: Business Rule - Prevent Duplicate QR Check-In (Transaction-Safe) ---")
     try:
-        # CHK0001 already check in for REG0001
+        cursor.execute("SAVEPOINT test_dup_chk;")
         cursor.execute("""
             INSERT INTO checkins (checkin_id, registration_id, event_id, student_id, scanned_at, scan_status, scanner_id)
-            VALUES ('CHK_TEST_DUP', 'REG0001', 'EVT001', 'STU001', datetime('now'), 'ACCEPTED', 'SCANNER-DEMO-01')
+            VALUES ('CHK_TEST_PROBE', 'REG0001', 'EVT001', 'STU001', datetime('now'), 'ACCEPTED', 'SCANNER-PROBE')
         """)
-        conn.commit()
         errors.append("Constraint violation failed: Allowed duplicate QR checkin for same registration!")
         print("  FAILED: Unique constraint on registration_id in checkins did not fire.")
     except sqlite3.IntegrityError as e:
         print(f"  PASSED: Duplicate QR checkin correctly prevented by unique constraint: {e}")
+    finally:
+        cursor.execute("ROLLBACK TO SAVEPOINT test_dup_chk;")
+        cursor.execute("RELEASE SAVEPOINT test_dup_chk;")
 
-    # 6. Duplicate Feedback Prevention Test
-    print("\n--- Test 6: Business Rule - Prevent Duplicate Feedback ---")
+    # 6. Duplicate Feedback Prevention Test (Transaction-Safe, Guarantees Rollback)
+    print("\n--- Test 6: Business Rule - Prevent Duplicate Feedback (Transaction-Safe) ---")
     try:
+        cursor.execute("SAVEPOINT test_dup_fdb;")
         cursor.execute("""
             INSERT INTO feedback (feedback_id, event_id, student_id, overall_rating, organization_rating, venue_rating, comments)
-            VALUES ('FDB_TEST_DUP', 'EVT001', 'STU001', 5, 5, 5, 'Duplicate feedback test')
+            VALUES ('FDB_TEST_PROBE', 'EVT001', 'STU001', 5, 5, 5, 'Probe feedback')
         """)
-        conn.commit()
         errors.append("Constraint violation failed: Allowed duplicate feedback for same student and event!")
         print("  FAILED: Unique constraint on feedback(event_id, student_id) did not fire.")
     except sqlite3.IntegrityError as e:
         print(f"  PASSED: Duplicate feedback submission correctly rejected: {e}")
+    finally:
+        cursor.execute("ROLLBACK TO SAVEPOINT test_dup_fdb;")
+        cursor.execute("RELEASE SAVEPOINT test_dup_fdb;")
 
-    # 7. Venue Booking Conflict Detection Simulation
+    # 7. Venue Booking Conflict Detection Simulation (Read-Only Query)
     print("\n--- Test 7: Conflict Detection Query (Simulated Coordinator Booking) ---")
-    # Let's check venue VEN001 on 2026-11-20 (EVT001 is booked 09:00 to 18:00)
     conflict_venue = "VEN001"
     conflict_date = "2026-11-20"
     candidate_start = "14:00"
@@ -166,7 +185,7 @@ def run_verification():
         print("  FAILED: Failed to detect conflict with EVT001 on VEN001.")
         errors.append("Conflict detection query failed.")
 
-    # 8. Analytics & Footfall Turnout Metrics Query
+    # 8. Analytics & Footfall Turnout Metrics Query (Read-Only Query)
     print("\n--- Test 8: Connected Lifecycle Analytics (Turnout Rate & Ratings) ---")
     cursor.execute("""
         SELECT 
@@ -194,7 +213,7 @@ def run_verification():
         avg_rt_str = f"{avg_rt:.2f}" if avg_rt is not None else "N/A"
         print(f"  {eid:<10} | {title:<22} | {cap:<5} | {regs:<5} | {footfall:<8} | {turnout:>6.1f}% | {avg_rt_str:<10} | {revs}")
 
-    # 9. AI Smart Venue Recommendation Query (Facilities + Capacity Match + Historical Footfall)
+    # 9. AI Smart Venue Recommendation Baseline Query (Read-Only Query)
     print("\n--- Test 9: AI Venue Recommendation Historical Baseline ---")
     cursor.execute("""
         SELECT 
@@ -225,9 +244,18 @@ def run_verification():
             print(f"  - {e}")
         sys.exit(1)
     else:
-        print("ALL VERIFICATION TESTS PASSED SUCCESSFULLY! (100% HEALTHY)")
+        print("ALL VERIFICATION TESTS PASSED SUCCESSFULLY! (100% HEALTHY & READ-ONLY)")
         print("================================================================")
 
 
+def main():
+    parser = argparse.ArgumentParser(description="EVA Database Verification Suite (Read-Only)")
+    parser.add_argument("--db-path", default=DEFAULT_DB_PATH, help="Path to SQLite database to verify")
+    parser.add_argument("--strict-counts", action="store_true", help="Require exact row count matches against initial DATA_INVENTORY.json")
+    args = parser.parse_args()
+
+    run_verification(db_path=args.db_path, strict_counts=args.strict_counts)
+
+
 if __name__ == "__main__":
-    run_verification()
+    main()

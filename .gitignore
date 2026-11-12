@@ -56,6 +56,9 @@ desktop.ini
 # Temporary Test & Scratch Scripts
 *.tmp
 inspect_project.py
+# Database Backups & Temporary State
+database/backups/
+*.bak
 *.db-wal
 *.db-shm
 *.db-journal
