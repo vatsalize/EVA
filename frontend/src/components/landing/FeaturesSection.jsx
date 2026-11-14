@@ -1,120 +1,114 @@
 import React from 'react';
-import { Calendar, Layers, ScanLine, Users, Star, BarChart3 } from 'lucide-react';
+import { Calendar, MapPin, Users, QrCode, MessageSquare, BarChart3 } from 'lucide-react';
 
 export function FeaturesSection() {
   const features = [
     {
       id: 1,
       title: 'Event Management',
-      description: 'Create, publish and manage events with a simple workflow.',
+      description: 'Create, publish and manage campus events with ease.',
       icon: Calendar,
-      color: 'text-violet-400',
-      bgColor: 'bg-violet-500/15',
-      borderColor: 'border-violet-500/30',
-      glow: 'group-hover:shadow-[0_10px_30px_rgba(139,92,246,0.2)]'
     },
     {
       id: 2,
-      title: 'AI Venue Recommendation',
-      description: 'Get the best venue with an explainable match score.',
-      icon: Layers,
-      color: 'text-blue-400',
-      bgColor: 'bg-blue-500/15',
-      borderColor: 'border-blue-500/30',
-      glow: 'group-hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)]'
+      title: 'Venue Booking',
+      description: 'Check availability and book campus venues seamlessly.',
+      icon: MapPin,
     },
     {
       id: 3,
-      title: 'QR-Based Attendance',
-      description: 'Secure check-ins with instant footfall tracking.',
-      icon: ScanLine,
-      color: 'text-emerald-400',
-      bgColor: 'bg-emerald-500/15',
-      borderColor: 'border-emerald-500/30',
-      glow: 'group-hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]'
+      title: 'Student Registration',
+      description: 'Simple and secure event registrations for students.',
+      icon: Users,
     },
     {
       id: 4,
-      title: 'Student Registration',
-      description: 'Discover and register for events with real-time capacity updates.',
-      icon: Users,
-      color: 'text-amber-400',
-      bgColor: 'bg-amber-500/15',
-      borderColor: 'border-amber-500/30',
-      glow: 'group-hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]'
+      title: 'QR Check-In',
+      description: 'Fast, contactless and accurate attendance tracking.',
+      icon: QrCode,
     },
     {
       id: 5,
       title: 'Feedback & Ratings',
-      description: 'Share your experience and help improve future events.',
-      icon: Star,
-      color: 'text-pink-400',
-      bgColor: 'bg-pink-500/15',
-      borderColor: 'border-pink-500/30',
-      glow: 'group-hover:shadow-[0_10px_30px_rgba(236,72,153,0.2)]'
+      description: 'Collect feedback and measure event impact.',
+      icon: MessageSquare,
     },
     {
       id: 6,
-      title: 'Analytics Dashboard',
-      description: 'Track registrations, footfall, feedback and venue utilization in real time.',
+      title: 'Analytics & Insights',
+      description: 'Real-time dashboards for events and venue usage.',
       icon: BarChart3,
-      color: 'text-purple-400',
-      bgColor: 'bg-purple-500/15',
-      borderColor: 'border-purple-500/30',
-      glow: 'group-hover:shadow-[0_10px_30px_rgba(168,85,247,0.2)]'
     }
   ];
 
   return (
-    <section id="features" className="py-20 md:py-28 relative overflow-hidden bg-[#0B1026]">
-      {/* Subtle Ambient Background Gradients */}
-      <div className="absolute top-1/2 left-0 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+    <section id="features" className="relative pt-8 pb-20 bg-[#F8F5F1] overflow-hidden">
+      
+      {/* Subtle Background Architectural Silhouettes (Left & Right) */}
+      <div className="absolute left-0 bottom-0 pointer-events-none opacity-25 hidden sm:block">
+        <svg width="240" height="150" viewBox="0 0 240 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 150 L0 100 L40 100 L40 60 L90 60 L90 40 L150 40 L150 80 L200 80 L200 120 L240 120 L240 150 Z" stroke="#B49168" strokeWidth="1" fill="#EDE5DA" fillOpacity="0.4"/>
+          <line x1="20" y1="100" x2="20" y2="150" stroke="#B49168" strokeWidth="0.8" />
+          <line x1="65" y1="60" x2="65" y2="150" stroke="#B49168" strokeWidth="0.8" />
+          <line x1="120" y1="40" x2="120" y2="150" stroke="#B49168" strokeWidth="0.8" />
+          <line x1="175" y1="80" x2="175" y2="150" stroke="#B49168" strokeWidth="0.8" />
+        </svg>
+      </div>
+
+      <div className="absolute right-0 bottom-0 pointer-events-none opacity-25 hidden sm:block">
+        <svg width="240" height="150" viewBox="0 0 240 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M240 150 L240 100 L200 100 L200 50 L140 50 L140 70 L90 70 L90 110 L40 110 L40 130 L0 130 L0 150 Z" stroke="#B49168" strokeWidth="1" fill="#EDE5DA" fillOpacity="0.4"/>
+          <line x1="220" y1="100" x2="220" y2="150" stroke="#B49168" strokeWidth="0.8" />
+          <line x1="170" y1="50" x2="170" y2="150" stroke="#B49168" strokeWidth="0.8" />
+          <line x1="115" y1="70" x2="115" y2="150" stroke="#B49168" strokeWidth="0.8" />
+          <line x1="65" y1="110" x2="65" y2="150" stroke="#B49168" strokeWidth="0.8" />
+        </svg>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-3">
-            <span className="w-8 h-px bg-purple-500/50" />
-            <span className="text-xs font-bold tracking-widest uppercase text-purple-400">
-              Core Capabilities
+        {/* Subsection Header: KEY FEATURES */}
+        <div className="text-center max-w-2xl mx-auto mb-12 space-y-2">
+          <div className="inline-flex items-center justify-center gap-3">
+            <span className="w-8 h-px bg-[#B49168]/60" />
+            <span className="text-xs font-bold tracking-widest uppercase text-[#B49168]">
+              KEY FEATURES
             </span>
-            <span className="w-8 h-px bg-purple-500/50" />
+            <span className="w-8 h-px bg-[#B49168]/60" />
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-            Everything You Need for Campus Events
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#292E35] tracking-tight">
+            Everything campus life needs.
           </h2>
 
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-            A unified, intelligent and secure platform for students and club coordinators.
+          <p className="text-[#706A63] text-sm sm:text-base leading-relaxed">
+            From discovering events to managing venues, EVA has you covered.
           </p>
         </div>
 
-        {/* 3x2 Grid of Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {/* 3x2 Grid of Feature Cards (Horizontal layout) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
               <div
                 key={feature.id}
-                className={`bg-[#15142F]/90 backdrop-blur-md rounded-2xl p-7 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 transform hover:-translate-y-1.5 group shadow-[0_10px_25px_rgba(0,0,0,0.3)] ${feature.glow}`}
+                className="bg-white rounded-2xl p-6 border border-[#E4D9CB] shadow-sm hover:shadow-md transition-all duration-300 flex items-start gap-4.5 hover:-translate-y-0.5 group"
               >
-                {/* Icon Container */}
-                <div className={`w-12 h-12 rounded-xl ${feature.bgColor} ${feature.borderColor} border ${feature.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon className="w-6 h-6" />
+                {/* Gold Rounded Square Container */}
+                <div className="w-12 h-12 rounded-2xl bg-[#F7EFE6] border border-[#EACBA5]/60 flex items-center justify-center flex-shrink-0 text-[#926B3C] group-hover:scale-105 transition-transform duration-300 shadow-xs">
+                  <Icon className="w-5 h-5 stroke-[2]" />
                 </div>
 
-                {/* Card Title */}
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-purple-200 transition-colors">
-                  {feature.title}
-                </h3>
-
-                {/* Card Description */}
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  {feature.description}
-                </p>
+                {/* Card Title & Description */}
+                <div>
+                  <h3 className="text-base font-bold text-[#292E35] mb-1 group-hover:text-[#926B3C] transition-colors">
+                    {feature.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#706A63] leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
               </div>
             );
           })}

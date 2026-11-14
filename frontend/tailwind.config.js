@@ -6,7 +6,23 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        heading: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+      },
       colors: {
+        campus: {
+          charcoal: '#292E35',
+          deep: '#222426',
+          gold: '#B49168',
+          champagne: '#EACBA5',
+          bronze: '#926B3C',
+          beige: '#EDE5DA',
+          cream: '#F8F5F1',
+          border: '#E4D9CB',
+          secondary: '#706A63',
+          card: '#F7EFE6',
+        },
         eva: {
           navy: '#0B1026',
           dark: '#070A18',

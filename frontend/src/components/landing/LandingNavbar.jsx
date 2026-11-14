@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Menu, X, ArrowRight, Sparkles, Key } from 'lucide-react';
+import { Menu, X, ArrowRight, GraduationCap, Users, Key } from 'lucide-react';
 
 export function LandingNavbar({ onOpenCredentials }) {
   const { isAuthenticated, isStudent, isCoordinator, user } = useAuth();
@@ -11,17 +11,17 @@ export function LandingNavbar({ onOpenCredentials }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 30);
 
-      const sections = ['home', 'features', 'how-it-works', 'analytics', 'about'];
-      const scrollPosition = window.scrollY + 120;
+      const sections = ['home', 'features', 'how-it-works', 'about'];
+      const scrollPosition = window.scrollY + 140;
 
-      for (const sectionId of sections) {
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const sectionId = sections[i];
         const el = document.getElementById(sectionId);
         if (el) {
           const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
+          if (scrollPosition >= top) {
             setActiveSection(sectionId);
             break;
           }
@@ -29,15 +29,15 @@ export function LandingNavbar({ onOpenCredentials }) {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
     { name: 'Home', href: '#home', id: 'home' },
     { name: 'Features', href: '#features', id: 'features' },
-    { name: 'How it Works', href: '#how-it-works', id: 'how-it-works' },
-    { name: 'Analytics', href: '#analytics', id: 'analytics' },
+    { name: 'How It Works', href: '#how-it-works', id: 'how-it-works' },
     { name: 'About', href: '#about', id: 'about' },
   ];
 
@@ -54,11 +54,12 @@ export function LandingNavbar({ onOpenCredentials }) {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#0B1026]/90 backdrop-blur-md border-b border-purple-500/15 shadow-lg shadow-black/40'
-          : 'bg-transparent border-b border-white/5'
+          ? 'bg-[#F8F5F1]/95 backdrop-blur-md border-b border-[#E4D9CB] shadow-sm py-2.5'
+          : 'bg-transparent border-b border-transparent py-4'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        
         {/* Left Section: Logo & Full Institute Title */}
         <div className="flex items-center gap-3">
           <a
@@ -66,15 +67,30 @@ export function LandingNavbar({ onOpenCredentials }) {
             onClick={(e) => scrollToSection(e, '#home')}
             className="flex items-center gap-3 group"
           >
-            {/* Stylized Violet/Purple "E" Icon */}
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-purple-600 via-violet-600 to-indigo-600 flex items-center justify-center text-white font-extrabold text-lg sm:text-xl shadow-[0_0_15px_rgba(168,85,247,0.4)] group-hover:scale-105 transition-transform">
-              <span className="tracking-tight">E</span>
+            {/* Rounded square gold logo containing the letter E */}
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#B49168] flex items-center justify-center text-white font-black text-lg sm:text-xl shadow-sm group-hover:scale-105 transition-transform flex-shrink-0">
+              <span className="leading-none">E</span>
             </div>
+
             <div className="flex items-center gap-2.5">
-              <span className="text-xl sm:text-2xl font-black tracking-tight text-white">EVA</span>
-              <span className="text-slate-400 font-light hidden sm:inline-block">|</span>
-              <span className="hidden sm:inline-block text-xs sm:text-sm font-medium text-slate-100/90 tracking-normal">
-                Thapar Institute Of Engineering and Technology
+              <span
+                className={`text-xl sm:text-2xl font-black tracking-tight transition-colors ${
+                  isScrolled ? 'text-[#292E35]' : 'text-white'
+                }`}
+              >
+                EVA
+              </span>
+              <span
+                className={`w-px h-5 hidden sm:inline-block transition-colors ${
+                  isScrolled ? 'bg-[#E4D9CB]' : 'bg-white/30'
+                }`}
+              />
+              <span
+                className={`hidden sm:inline-block text-[11px] sm:text-xs font-medium leading-tight max-w-[210px] transition-colors ${
+                  isScrolled ? 'text-[#292E35]' : 'text-white/95'
+                }`}
+              >
+                Thapar Institute of Engineering<br />and Technology
               </span>
             </div>
           </a>
@@ -82,18 +98,20 @@ export function LandingNavbar({ onOpenCredentials }) {
 
         {/* Center Section: Navigation Links */}
         <nav className="hidden md:flex items-center">
-          <div className="flex items-center gap-1 sm:gap-2">
-            {navLinks.filter(l => l.id !== 'analytics').map((link) => {
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <a
                   key={link.id}
                   href={link.href}
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className={`px-3.5 py-1 rounded-full text-xs lg:text-sm font-medium transition-all duration-200 ${
+                  className={`px-4 py-1.5 rounded-full text-xs lg:text-sm transition-all duration-200 ${
                     isActive
-                      ? 'bg-purple-900/60 text-white border border-purple-500/40 shadow-sm font-semibold'
-                      : 'text-slate-200 hover:text-white hover:bg-white/5'
+                      ? 'bg-[#EACBA5] text-[#292E35] font-semibold shadow-sm'
+                      : isScrolled
+                      ? 'text-[#292E35] hover:text-[#292E35] hover:bg-[#E4D9CB]/40 font-medium'
+                      : 'text-white/90 hover:text-white hover:bg-white/10 font-medium'
                   }`}
                 >
                   {link.name}
@@ -108,24 +126,33 @@ export function LandingNavbar({ onOpenCredentials }) {
           {isAuthenticated ? (
             <Link
               to={isStudent ? '/student/dashboard' : '/coordinator/dashboard'}
-              className="px-5 py-2 text-xs lg:text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-full shadow-[0_0_20px_rgba(168,85,247,0.35)] transition-all flex items-center gap-2 hover:scale-105"
+              className="px-5 py-2 text-xs lg:text-sm font-semibold text-[#292E35] bg-[#EACBA5] hover:bg-[#DEB887] rounded-full shadow-sm transition-all flex items-center gap-2 hover:scale-105"
             >
               Dashboard ({user?.full_name?.split(' ')[0] || (isStudent ? 'Student' : 'Coordinator')})
               <ArrowRight className="w-4 h-4" />
             </Link>
           ) : (
             <>
+              {/* Student Login - Outlined Pill */}
               <Link
                 to="/login"
-                className="px-5 py-2 text-xs lg:text-sm font-medium text-white bg-black/40 hover:bg-black/60 border border-white/30 hover:border-white/50 rounded-full backdrop-blur-md transition-all hover:scale-105"
+                className={`px-4 lg:px-5 py-2 text-xs lg:text-sm font-medium rounded-full transition-all flex items-center gap-1.5 hover:scale-105 ${
+                  isScrolled
+                    ? 'text-[#292E35] border border-[#292E35] hover:bg-[#292E35]/5'
+                    : 'text-white border border-white/60 hover:border-white hover:bg-white/10'
+                }`}
               >
-                Student Login
+                <GraduationCap className="w-4 h-4" />
+                <span>Student Login</span>
               </Link>
+
+              {/* Coordinator Portal / Login - Filled Gold Pill */}
               <Link
                 to="/coordinator/login"
-                className="px-5 py-2 text-xs lg:text-sm font-semibold text-white bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-full shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] transition-all hover:scale-105"
+                className="px-4 lg:px-5 py-2 text-xs lg:text-sm font-medium text-white bg-[#B49168] hover:bg-[#9E7D58] rounded-full shadow-sm transition-all flex items-center gap-1.5 hover:scale-105"
               >
-                Coordinator Login
+                <Users className="w-4 h-4" />
+                <span>Coordinator Portal</span>
               </Link>
             </>
           )}
@@ -136,14 +163,23 @@ export function LandingNavbar({ onOpenCredentials }) {
           {onOpenCredentials && (
             <button
               onClick={onOpenCredentials}
-              className="p-2 rounded-lg bg-white/5 border border-white/10 text-slate-300"
+              className={`p-2 rounded-lg border text-xs font-semibold ${
+                isScrolled
+                  ? 'border-[#E4D9CB] text-[#292E35] bg-white'
+                  : 'border-white/20 text-white bg-black/20'
+              }`}
+              title="Demo Credentials"
             >
               <Key className="w-4 h-4" />
             </button>
           )}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white focus:outline-none"
+            className={`p-2 rounded-xl border focus:outline-none ${
+              isScrolled
+                ? 'border-[#E4D9CB] text-[#292E35] bg-white'
+                : 'border-white/20 text-white bg-black/20'
+            }`}
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -153,17 +189,17 @@ export function LandingNavbar({ onOpenCredentials }) {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0B1026]/95 backdrop-blur-xl border-b border-purple-500/20 px-4 pt-4 pb-6 space-y-4">
+        <div className="md:hidden bg-[#F8F5F1] border-b border-[#E4D9CB] px-4 pt-4 pb-6 space-y-4 shadow-xl">
           <div className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <a
                 key={link.id}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                className={`px-4 py-2.5 rounded-xl text-sm transition-colors ${
                   activeSection === link.id
-                    ? 'bg-purple-600/20 text-purple-300 font-semibold border border-purple-500/30'
-                    : 'text-slate-300 hover:bg-white/5'
+                    ? 'bg-[#EACBA5] text-[#292E35] font-bold shadow-sm'
+                    : 'text-[#292E35] hover:bg-[#EDE5DA] font-medium'
                 }`}
               >
                 {link.name}
@@ -171,12 +207,12 @@ export function LandingNavbar({ onOpenCredentials }) {
             ))}
           </div>
 
-          <div className="pt-4 border-t border-white/10 flex flex-col gap-2.5">
+          <div className="pt-4 border-t border-[#E4D9CB] flex flex-col gap-2.5">
             {isAuthenticated ? (
               <Link
                 to={isStudent ? '/student/dashboard' : '/coordinator/dashboard'}
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 text-center text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-purple-600 rounded-xl"
+                className="w-full py-2.5 text-center text-sm font-semibold text-[#292E35] bg-[#EACBA5] rounded-full shadow-sm"
               >
                 Go to Dashboard
               </Link>
@@ -185,16 +221,18 @@ export function LandingNavbar({ onOpenCredentials }) {
                 <Link
                   to="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 text-center text-sm font-medium text-slate-200 bg-white/5 border border-white/10 rounded-xl"
+                  className="w-full py-2.5 text-center text-sm font-semibold text-[#292E35] border border-[#292E35] rounded-full flex items-center justify-center gap-2"
                 >
+                  <GraduationCap className="w-4 h-4" />
                   Student Login
                 </Link>
                 <Link
                   to="/coordinator/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 text-center text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-purple-600 rounded-xl"
+                  className="w-full py-2.5 text-center text-sm font-semibold text-white bg-[#B49168] rounded-full flex items-center justify-center gap-2 shadow-sm"
                 >
-                  Coordinator Login
+                  <Users className="w-4 h-4" />
+                  Coordinator Portal
                 </Link>
               </>
             )}

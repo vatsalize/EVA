@@ -23,8 +23,8 @@ export function EvaluatorModal({ isOpen, onClose }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#0F122B] border border-purple-500/30 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 text-white relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="bg-[#222426] border border-[#B49168]/30 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 text-white relative">
         
         {/* Close Button */}
         <button
@@ -36,7 +36,7 @@ export function EvaluatorModal({ isOpen, onClose }) {
 
         {/* Modal Header */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="p-2.5 rounded-xl bg-purple-600/20 border border-purple-500/30 text-purple-400">
+          <div className="p-2.5 rounded-xl bg-[#B49168]/20 border border-[#B49168]/40 text-[#EACBA5]">
             <Key className="w-6 h-6" />
           </div>
           <div>
@@ -48,13 +48,13 @@ export function EvaluatorModal({ isOpen, onClose }) {
         {/* Coordinator Accounts */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <div className="text-xs font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-purple-400" />
+            <div className="text-xs font-bold uppercase tracking-wider text-[#EACBA5] flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-[#B49168]" />
               Club Coordinators (All share password: EVA-Demo@2026)
             </div>
             <button
               onClick={() => copyToClipboard('EVA-Demo@2026', 'pass-coo')}
-              className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1 font-mono"
+              className="text-xs text-[#EACBA5] hover:text-white flex items-center gap-1 font-mono"
             >
               {copiedKey === 'pass-coo' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               Copy Password
@@ -65,12 +65,12 @@ export function EvaluatorModal({ isOpen, onClose }) {
             {coordinators.map((c) => (
               <div
                 key={c.id}
-                className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between hover:border-purple-500/40 transition-colors"
+                className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between hover:border-[#B49168]/50 transition-colors"
               >
                 <div>
                   <div className="text-sm font-bold text-white font-mono flex items-center gap-2">
                     {c.id}
-                    <span className="text-[11px] font-normal text-purple-300 px-1.5 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">
+                    <span className="text-[11px] font-normal text-[#EACBA5] px-1.5 py-0.5 rounded bg-[#B49168]/15 border border-[#B49168]/30">
                       {c.club}
                     </span>
                   </div>
@@ -91,7 +91,7 @@ export function EvaluatorModal({ isOpen, onClose }) {
             <Link
               to="/coordinator/login"
               onClick={onClose}
-              className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center gap-1"
+              className="text-xs font-semibold text-[#EACBA5] hover:text-white flex items-center gap-1"
             >
               Go to Coordinator Login <ExternalLink className="w-3 h-3" />
             </Link>
@@ -101,13 +101,13 @@ export function EvaluatorModal({ isOpen, onClose }) {
         {/* Student Accounts */}
         <div className="border-t border-white/10 pt-5">
           <div className="flex items-center justify-between mb-3">
-            <div className="text-xs font-bold uppercase tracking-wider text-blue-300 flex items-center gap-1.5">
-              <UserCheck className="w-4 h-4 text-blue-400" />
+            <div className="text-xs font-bold uppercase tracking-wider text-[#EACBA5] flex items-center gap-1.5">
+              <UserCheck className="w-4 h-4 text-[#B49168]" />
               Student Pre-seeded Accounts (Password: Student@2026)
             </div>
             <button
               onClick={() => copyToClipboard('Student@2026', 'pass-stu')}
-              className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 font-mono"
+              className="text-xs text-[#EACBA5] hover:text-white flex items-center gap-1 font-mono"
             >
               {copiedKey === 'pass-stu' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               Copy Password
@@ -140,7 +140,7 @@ export function EvaluatorModal({ isOpen, onClose }) {
               </span>
             </div>
             <div className="text-[11px] text-slate-400 pt-1">
-              💡 Or click <Link to="/signup" onClick={onClose} className="text-purple-400 underline">Student Sign Up</Link> to create any new account with any name!
+              💡 Or click <Link to="/signup" onClick={onClose} className="text-[#EACBA5] underline">Student Sign Up</Link> to create any new account with any name!
             </div>
           </div>
         </div>

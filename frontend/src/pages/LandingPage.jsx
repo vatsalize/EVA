@@ -44,35 +44,31 @@ export function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0B1026] text-white selection:bg-purple-600 selection:text-white flex flex-col font-sans antialiased">
-      {/* Top Navigation */}
+    <div className="min-h-screen bg-[#F8F5F1] text-[#292E35] selection:bg-[#EACBA5] selection:text-[#292E35] flex flex-col font-sans antialiased overflow-x-hidden">
+      {/* 1. Global Sticky Navigation Header */}
       <LandingNavbar onOpenCredentials={() => setEvaluatorModalOpen(true)} />
 
-      {/* Main Page Flow */}
+      {/* Main Vertically Scrollable Content Flow */}
       <main className="flex-1">
-        {/* 1. Hero Section (Deep Navy + Twilight Campus Building) */}
+        {/* SECTION 01 — Cinematic Campus Hero */}
         <HeroSection />
 
-        {/* 2. Statistics Bar (Database-backed) */}
+        {/* SECTION 02 — Live Campus Statistics and Key Features */}
         <StatisticsSection stats={stats} loading={loading} />
-
-        {/* 3. Core Capabilities / Features (6 dark glass cards) */}
         <FeaturesSection />
 
-        {/* 4. The EVA Flow (6 steps in horizontal line with wave transition) */}
+        {/* SECTION 03 — Six-Step EVA Workflow and Role-Based Portals */}
         <WorkflowSection />
-
-        {/* 5. Role-Based Benefits (Students vs Coordinators cards with illustrations) */}
         <RoleBenefitsSection />
 
-        {/* 6. Final Call to Action */}
+        {/* SECTION 04 (Part 1) — Final Call to Action */}
         <FinalCTASection />
       </main>
 
-      {/* Professional Footer */}
+      {/* SECTION 04 (Part 2) — Final Full-Width Footer */}
       <LandingFooter onOpenCredentials={() => setEvaluatorModalOpen(true)} />
 
-      {/* Evaluator Credentials Modal for testing */}
+      {/* Evaluator Credentials Modal */}
       <EvaluatorModal
         isOpen={evaluatorModalOpen}
         onClose={() => setEvaluatorModalOpen(false)}
