@@ -1,125 +1,154 @@
 import React from 'react';
-import { Calendar, CalendarCheck, Users, QrCode, BarChart3, ArrowRight } from 'lucide-react';
+import { Calendar, MapPin, UserPlus, QrCode, Star, BarChart3, ArrowRight } from 'lucide-react';
 
 export function WorkflowSection() {
   const steps = [
     {
-      id: 1,
+      number: '01',
       title: 'Create Event',
-      description: 'Coordinators set up event details.',
       icon: Calendar,
+      color: 'text-violet-600',
+      bgColor: 'bg-violet-100',
+      borderColor: 'border-violet-200'
     },
     {
-      id: 2,
-      title: 'Book Venue',
-      description: 'Reserve the right venue based on availability.',
-      icon: CalendarCheck,
+      number: '02',
+      title: 'Book Venue\n(AI Match)',
+      icon: MapPin,
+      color: 'text-indigo-600',
+      bgColor: 'bg-indigo-100',
+      borderColor: 'border-indigo-200'
     },
     {
-      id: 3,
-      title: 'Register',
-      description: 'Students discover and register for events.',
-      icon: Users,
+      number: '03',
+      title: 'Student\nRegistration',
+      icon: UserPlus,
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-100',
+      borderColor: 'border-blue-200'
     },
     {
-      id: 4,
-      title: 'Check-In',
-      description: 'Verify attendance via QR codes.',
+      number: '04',
+      title: 'QR Check-in',
       icon: QrCode,
+      color: 'text-cyan-600',
+      bgColor: 'bg-cyan-100',
+      borderColor: 'border-cyan-200'
     },
     {
-      id: 5,
-      title: 'Analyze',
-      description: 'View feedback and performance insights.',
+      number: '05',
+      title: 'Feedback',
+      icon: Star,
+      color: 'text-amber-600',
+      bgColor: 'bg-amber-100',
+      borderColor: 'border-amber-200'
+    },
+    {
+      number: '06',
+      title: 'Analytics',
       icon: BarChart3,
+      color: 'text-emerald-600',
+      bgColor: 'bg-emerald-100',
+      borderColor: 'border-emerald-200'
     }
   ];
 
   return (
-    <section id="how-it-works" className="relative bg-[#1C2127] text-white py-16 sm:py-20 overflow-hidden">
+    <section id="how-it-works" className="relative bg-white pt-6 pb-20 md:pb-24 overflow-hidden">
       
-      {/* Top Wave Divider Transitioning from Warm Cream to Dark Charcoal */}
-      <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none pointer-events-none">
+      {/* Curved Wave Divider Transitioning from Navy to White */}
+      <div className="w-full overflow-hidden leading-none -mt-1 pointer-events-none">
         <svg
-          viewBox="0 0 1200 60"
+          viewBox="0 0 1440 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-8 sm:h-12 object-cover"
+          className="w-full h-14 sm:h-20 md:h-24 object-cover"
           preserveAspectRatio="none"
         >
           <path
-            d="M0,0 C300,50 600,0 900,40 C1050,60 1150,20 1200,0 L1200,0 L0,0 Z"
-            fill="#FAF7F2"
+            d="M0,0 C480,120 960,120 1440,0 L1440,0 L0,0 Z"
+            fill="#0B1026"
           />
         </svg>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-4">
         
-        {/* Section Header with Dashes */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <div className="inline-flex items-center justify-center gap-3 w-full">
-            <span className="w-12 sm:w-16 h-px bg-slate-600" />
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#FAF7F2] tracking-tight">
-              How EVA Works
-            </h2>
-            <span className="w-12 sm:w-16 h-px bg-slate-600" />
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+          <div className="inline-flex items-center gap-3">
+            <span className="w-8 h-px bg-purple-400" />
+            <span className="text-xs font-bold tracking-widest uppercase text-purple-600">
+              The EVA Flow
+            </span>
+            <span className="w-8 h-px bg-purple-400" />
           </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+            From Idea to Insights in 6 Simple Steps
+          </h2>
         </div>
 
-        {/* 5 Connected Steps in Flowchart */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4 items-start max-w-6xl mx-auto">
+        {/* Desktop Connected Flow */}
+        <div className="hidden lg:flex items-center justify-between relative max-w-6xl mx-auto px-4">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             const isLast = idx === steps.length - 1;
 
             return (
-              <div key={step.id} className="relative flex flex-col items-center text-center group">
-                
-                {/* Horizontal Connecting Arrow on Desktop */}
-                {!isLast && (
-                  <div className="hidden lg:block absolute top-7 -right-3 sm:-right-4 w-7 sm:w-8 z-0 text-slate-500 opacity-60">
-                    <ArrowRight className="w-6 h-6 stroke-[1.5]" />
+              <React.Fragment key={idx}>
+                {/* Step Item */}
+                <div className="flex flex-col items-center text-center group cursor-default">
+                  {/* Icon Card */}
+                  <div
+                    className={`w-16 h-16 rounded-2xl ${step.bgColor} ${step.borderColor} border flex items-center justify-center shadow-sm group-hover:shadow-md group-hover:scale-110 transition-all duration-300 mb-3`}
+                  >
+                    <Icon className={`w-8 h-8 ${step.color}`} />
                   </div>
-                )}
 
-                {/* Circle Icon Badge */}
-                <div className="w-15 h-15 sm:w-16 sm:h-16 rounded-full bg-[#352D26] border border-[#5C4A3B] flex items-center justify-center text-[#E2CEB9] mb-4 shadow-lg group-hover:scale-110 group-hover:border-[#A27B55] transition-all duration-300 z-10">
-                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />
+                  {/* Step Title */}
+                  <div className="text-sm font-bold text-slate-800 leading-tight whitespace-pre-line">
+                    {step.title}
+                  </div>
                 </div>
 
-                {/* Step Title */}
-                <h3 className="text-base sm:text-lg font-bold text-white mb-1.5">
-                  {step.title}
-                </h3>
+                {/* Dashed Connecting Arrow */}
+                {!isLast && (
+                  <div className="flex-1 flex items-center justify-center px-2">
+                    <div className="w-full border-t-2 border-dashed border-slate-300 relative flex items-center justify-end">
+                      <ArrowRight className="w-4 h-4 text-slate-400 absolute -right-2 transform -translate-y-1/2 top-1/2" />
+                    </div>
+                  </div>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </div>
 
-                {/* Step Description */}
-                <p className="text-xs sm:text-sm text-slate-400 max-w-[170px] leading-relaxed">
-                  {step.description}
-                </p>
+        {/* Mobile / Tablet Responsive Timeline */}
+        <div className="lg:hidden grid grid-cols-2 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
+          {steps.map((step, idx) => {
+            const Icon = step.icon;
+            return (
+              <div
+                key={idx}
+                className="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col items-center text-center shadow-sm hover:border-purple-300 transition-all"
+              >
+                <div className="text-xs font-black text-purple-600 mb-1">STEP {step.number}</div>
+                <div
+                  className={`w-14 h-14 rounded-2xl ${step.bgColor} ${step.borderColor} border flex items-center justify-center mb-3 shadow-inner`}
+                >
+                  <Icon className={`w-7 h-7 ${step.color}`} />
+                </div>
+                <div className="text-sm font-bold text-slate-800 whitespace-pre-line leading-tight">
+                  {step.title}
+                </div>
               </div>
             );
           })}
         </div>
 
       </div>
-
-      {/* Bottom Wave Divider Transitioning from Dark Charcoal to Warm Cream */}
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none pointer-events-none">
-        <svg
-          viewBox="0 0 1200 60"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-8 sm:h-12 object-cover rotate-180"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0 C300,50 600,0 900,40 C1050,60 1150,20 1200,0 L1200,0 L0,0 Z"
-            fill="#FAF7F2"
-          />
-        </svg>
-      </div>
-
     </section>
   );
 }
