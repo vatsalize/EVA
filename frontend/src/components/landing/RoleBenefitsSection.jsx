@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { GraduationCap, Users, Check, ArrowRight } from 'lucide-react';
 import studentCharacterImg from '../../assets/redesign/eva-student-matched.png';
 import coordinatorCharacterImg from '../../assets/redesign/eva-coordinator-character.png';
 
 export function RoleBenefitsSection() {
+  const { isAuthenticated, isStudent, isCoordinator } = useAuth();
   const studentBenefits = [
     'Discover and register for campus events',
     'Get a unique digital QR pass',
@@ -56,7 +58,7 @@ export function RoleBenefitsSection() {
             {/* Action Button: Anchored to identical baseline */}
             <div className="mt-auto pt-5 sm:pt-6 relative z-20">
               <Link
-                to="/signup"
+                to={isAuthenticated && isStudent ? '/student/dashboard' : '/signup'}
                 className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white bg-[#292E35] hover:bg-[#1E2227] px-6 py-2.5 rounded-full shadow-sm hover:shadow transition-all group-hover:translate-x-0.5 hover:scale-105"
               >
                 <span>Explore Student Portal</span>
@@ -104,7 +106,7 @@ export function RoleBenefitsSection() {
             {/* Action Button: Anchored to identical baseline */}
             <div className="mt-auto pt-5 sm:pt-6 relative z-20">
               <Link
-                to="/coordinator/login"
+                to={isAuthenticated && isCoordinator ? '/coordinator/dashboard' : '/coordinator/login'}
                 className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#292E35] bg-[#EACBA5] hover:bg-[#DEB887] px-6 py-2.5 rounded-full shadow-sm hover:shadow transition-all group-hover:translate-x-0.5 hover:scale-105"
               >
                 <span>Open Coordinator Portal</span>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { ArrowRight } from 'lucide-react';
 
 export function FinalCTASection() {
+  const { isAuthenticated, isStudent, isCoordinator } = useAuth();
   return (
     <div className="pt-8 pb-14 sm:pt-10 sm:pb-16 relative bg-transparent">
       
@@ -82,7 +84,13 @@ export function FinalCTASection() {
             {/* Right Action Button */}
             <div className="flex-shrink-0 pt-1 lg:pt-0">
               <Link
-                to="/signup"
+                to={
+                  isAuthenticated && isStudent
+                    ? '/student/dashboard'
+                    : isAuthenticated && isCoordinator
+                    ? '/coordinator/dashboard'
+                    : '/signup'
+                }
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#EACBA5] hover:bg-[#DEB887] text-[#292E35] font-bold rounded-full shadow-md hover:shadow-lg transition-all duration-300 text-xs sm:text-sm group hover:scale-105"
               >
                 <span>Get Started Now</span>

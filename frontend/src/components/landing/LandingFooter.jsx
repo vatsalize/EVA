@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { Key } from 'lucide-react';
 import api from '../../services/api';
 
 export function LandingFooter({ onOpenCredentials }) {
+  const { isAuthenticated, isStudent, isCoordinator } = useAuth();
   const [isConnected, setIsConnected] = useState(true);
 
   useEffect(() => {
@@ -123,14 +125,23 @@ export function LandingFooter({ onOpenCredentials }) {
           <div className="md:col-span-4 space-y-2.5">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">ACCESS PORTALS</h4>
             <div className="flex flex-col gap-2 text-xs sm:text-[13px] text-slate-300">
-              <Link to="/login" className="hover:text-white transition-colors">
-                Student Sign In &amp; Registrations
+              <Link
+                to={isAuthenticated && isStudent ? '/student/dashboard' : '/login'}
+                className="hover:text-white transition-colors"
+              >
+                {isAuthenticated && isStudent ? 'Student Dashboard' : 'Student Sign In & Registrations'}
               </Link>
-              <Link to="/signup" className="hover:text-white transition-colors">
+              <Link
+                to={isAuthenticated && isStudent ? '/student/dashboard' : '/signup'}
+                className="hover:text-white transition-colors"
+              >
                 Student Account Registration
               </Link>
-              <Link to="/coordinator/login" className="hover:text-white transition-colors">
-                Club Coordinator Management Portal
+              <Link
+                to={isAuthenticated && isCoordinator ? '/coordinator/dashboard' : '/coordinator/login'}
+                className="hover:text-white transition-colors"
+              >
+                {isAuthenticated && isCoordinator ? 'Coordinator Dashboard' : 'Club Coordinator Management Portal'}
               </Link>
             </div>
 

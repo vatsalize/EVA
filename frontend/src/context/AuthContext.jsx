@@ -4,9 +4,17 @@ import api from '../services/api';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
+  const initialToken = localStorage.getItem('eva_token');
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('eva_token'));
-  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(initialToken);
+  const [loading, setLoading] = useState(Boolean(initialToken));
+
+  const logout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem('eva_token');
+    localStorage.removeItem('eva_user');
+  };
 
   // Initialize and verify authentication on load
   useEffect(() => {
@@ -19,7 +27,7 @@ export function AuthProvider({ children }) {
 
       try {
         const res = await api.get('/auth/me');
-        if (res.data.success) {
+        if (res.data?.success && res.data?.user) {
           setUser(res.data.user);
           localStorage.setItem('eva_user', JSON.stringify(res.data.user));
         } else {
@@ -66,13 +74,6 @@ export function AuthProvider({ children }) {
       localStorage.setItem('eva_user', JSON.stringify(res.data.user));
     }
     return res.data;
-  };
-
-  const logout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem('eva_token');
-    localStorage.removeItem('eva_user');
   };
 
   const changePassword = async (currentPassword, newPassword) => {

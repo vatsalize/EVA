@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { ArrowRight, Users, Calendar } from 'lucide-react';
 import thaparCampusCleanBg from '../../assets/redesign/thapar_campus_clean_bg.jpg';
 
 export function HeroSection() {
+  const { isAuthenticated, isStudent, isCoordinator } = useAuth();
   return (
     <section
       id="home"
@@ -46,7 +48,7 @@ export function HeroSection() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
             <Link
-              to="/signup"
+              to={isAuthenticated && isStudent ? '/student/dashboard' : '/signup'}
               className="px-6 sm:px-7 py-3 sm:py-3.5 bg-[#EACBA5] hover:bg-[#DEB887] text-[#292E35] font-bold rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 group text-sm sm:text-base hover:scale-105"
             >
               <span>Get Started as Student</span>
@@ -54,7 +56,7 @@ export function HeroSection() {
             </Link>
 
             <Link
-              to="/coordinator/login"
+              to={isAuthenticated && isCoordinator ? '/coordinator/dashboard' : '/coordinator/login'}
               className="px-6 sm:px-7 py-3 sm:py-3.5 bg-black/40 hover:bg-black/60 border border-[#EACBA5]/50 hover:border-[#EACBA5] text-white font-medium rounded-full backdrop-blur-md transition-all duration-200 flex items-center justify-center gap-2 group text-sm sm:text-base hover:scale-105"
             >
               <Users className="w-4 h-4 text-[#EACBA5]" />

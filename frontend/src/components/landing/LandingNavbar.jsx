@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Menu, X, ArrowRight, GraduationCap, Users, Key } from 'lucide-react';
+import { Menu, X, ArrowRight, GraduationCap, Users, Key, LogOut } from 'lucide-react';
 
 export function LandingNavbar({ onOpenCredentials }) {
-  const { isAuthenticated, isStudent, isCoordinator, user } = useAuth();
+  const { isAuthenticated, isStudent, isCoordinator, user, loading, logout } = useAuth();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const isClickScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/', { replace: true });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -152,15 +158,44 @@ export function LandingNavbar({ onOpenCredentials }) {
         </nav>
 
         {/* Right Section: Auth Actions (Desktop) */}
-        <div className="hidden md:flex items-center gap-3">
-          {isAuthenticated ? (
-            <Link
-              to={isStudent ? '/student/dashboard' : '/coordinator/dashboard'}
-              className="px-5 py-2 text-xs lg:text-sm font-semibold text-[#292E35] bg-[#EACBA5] hover:bg-[#DEB887] rounded-full shadow-sm transition-all flex items-center gap-2 hover:scale-105"
-            >
-              Dashboard ({user?.full_name?.split(' ')[0] || (isStudent ? 'Student' : 'Coordinator')})
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+        <div className="hidden md:flex items-center gap-3 min-w-[280px] justify-end">
+          {loading ? (
+            <div
+              className={`h-9 w-44 rounded-full animate-pulse ${
+                isScrolled ? 'bg-[#292E35]/5' : 'bg-white/10'
+              }`}
+            />
+          ) : isAuthenticated ? (
+            <>
+              {/* Authenticated Role-Specific Dashboard Button */}
+              <Link
+                to={isStudent ? '/student/dashboard' : '/coordinator/dashboard'}
+                className="px-4 lg:px-5 py-2 text-xs lg:text-sm font-semibold text-[#292E35] bg-[#EACBA5] hover:bg-[#DEB887] rounded-full shadow-sm transition-all flex items-center gap-1.5 hover:scale-105"
+              >
+                {isStudent ? (
+                  <GraduationCap className="w-4 h-4 text-[#292E35]" />
+                ) : (
+                  <Users className="w-4 h-4 text-[#292E35]" />
+                )}
+                <span>{isStudent ? 'Student Dashboard' : 'Coordinator Dashboard'}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+
+              {/* Explicit Logout Action */}
+              <button
+                type="button"
+                onClick={handleLogout}
+                className={`px-3.5 lg:px-4 py-2 text-xs lg:text-sm font-medium rounded-full transition-all flex items-center gap-1.5 hover:scale-105 cursor-pointer ${
+                  isScrolled
+                    ? 'text-[#292E35] border border-[#292E35]/40 hover:border-[#292E35] hover:bg-[#292E35]/5'
+                    : 'text-white border border-white/60 hover:border-white hover:bg-white/10'
+                }`}
+                title="Log out of EVA"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Logout</span>
+              </button>
+            </>
           ) : (
             <>
               {/* Student Login - Outlined Pill */}
@@ -238,14 +273,31 @@ export function LandingNavbar({ onOpenCredentials }) {
           </div>
 
           <div className="pt-4 border-t border-[#E4D9CB] flex flex-col gap-2.5">
-            {isAuthenticated ? (
-              <Link
-                to={isStudent ? '/student/dashboard' : '/coordinator/dashboard'}
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 text-center text-sm font-semibold text-[#292E35] bg-[#EACBA5] rounded-full shadow-sm"
-              >
-                Go to Dashboard
-              </Link>
+            {loading ? (
+              <div className="h-10 w-full rounded-full bg-[#EACBA5]/20 animate-pulse" />
+            ) : isAuthenticated ? (
+              <>
+                <Link
+                  to={isStudent ? '/student/dashboard' : '/coordinator/dashboard'}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full py-2.5 text-center text-sm font-semibold text-[#292E35] bg-[#EACBA5] rounded-full shadow-sm flex items-center justify-center gap-2"
+                >
+                  {isStudent ? <GraduationCap className="w-4 h-4" /> : <Users className="w-4 h-4" />}
+                  <span>{isStudent ? 'Student Dashboard' : 'Coordinator Dashboard'}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="w-full py-2.5 text-center text-sm font-semibold text-[#292E35] border border-[#292E35]/40 rounded-full flex items-center justify-center gap-2 hover:bg-[#292E35]/5 cursor-pointer"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Logout</span>
+                </button>
+              </>
             ) : (
               <>
                 <Link
@@ -262,7 +314,7 @@ export function LandingNavbar({ onOpenCredentials }) {
                   className="w-full py-2.5 text-center text-sm font-semibold text-white bg-[#B49168] rounded-full flex items-center justify-center gap-2 shadow-sm"
                 >
                   <Users className="w-4 h-4" />
-                  Coordinator Portal
+                  Coordinator Login
                 </Link>
               </>
             )}
