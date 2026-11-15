@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useAuthTransition } from '../../context/AuthTransitionContext';
 import { ArrowRight, Users, Calendar } from 'lucide-react';
 import thaparCampusCleanBg from '../../assets/redesign/thapar_campus_clean_bg.jpg';
 
 export function HeroSection() {
   const { isAuthenticated, isStudent, isCoordinator } = useAuth();
+  const { triggerLoginTransition, triggerCoordinatorTransition, triggerSignupTransition } = useAuthTransition();
+  const location = useLocation();
+  const returnedFromLogin = location.state?.returnedFromLogin;
   return (
     <section
       id="home"
@@ -23,7 +27,11 @@ export function HeroSection() {
 
       {/* Hero Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-16 lg:pt-32 lg:pb-24">
-        <div className="max-w-xl lg:max-w-2xl space-y-6 text-left">
+        <div
+          className={`max-w-xl lg:max-w-2xl space-y-6 text-left ${
+            returnedFromLogin ? 'animate-in fade-in duration-700 ease-out fill-mode-both' : ''
+          }`}
+        >
           
           {/* Eyebrow Badge: EVENT & VENUE AUTOMATION with Calendar icon */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 border border-[#EACBA5]/60 backdrop-blur-sm shadow-sm">
@@ -49,6 +57,12 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
             <Link
               to={isAuthenticated && isStudent ? '/student/dashboard' : '/signup'}
+              onClick={(e) => {
+                if (!isAuthenticated || !isStudent) {
+                  e.preventDefault();
+                  triggerSignupTransition();
+                }
+              }}
               className="px-6 sm:px-7 py-3 sm:py-3.5 bg-[#EACBA5] hover:bg-[#DEB887] text-[#292E35] font-bold rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 group text-sm sm:text-base hover:scale-105"
             >
               <span>Get Started as Student</span>
@@ -57,6 +71,12 @@ export function HeroSection() {
 
             <Link
               to={isAuthenticated && isCoordinator ? '/coordinator/dashboard' : '/coordinator/login'}
+              onClick={(e) => {
+                if (!isAuthenticated || !isCoordinator) {
+                  e.preventDefault();
+                  triggerCoordinatorTransition();
+                }
+              }}
               className="px-6 sm:px-7 py-3 sm:py-3.5 bg-black/40 hover:bg-black/60 border border-[#EACBA5]/50 hover:border-[#EACBA5] text-white font-medium rounded-full backdrop-blur-md transition-all duration-200 flex items-center justify-center gap-2 group text-sm sm:text-base hover:scale-105"
             >
               <Users className="w-4 h-4 text-[#EACBA5]" />

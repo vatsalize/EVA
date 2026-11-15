@@ -1,21 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { Menu, X, ArrowRight, GraduationCap, Users, Key, LogOut } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuthTransition } from '../../context/AuthTransitionContext';
+import { Menu, X, GraduationCap, Users, Key } from 'lucide-react';
 
 export function LandingNavbar({ onOpenCredentials }) {
-  const { isAuthenticated, isStudent, isCoordinator, user, loading, logout } = useAuth();
-  const navigate = useNavigate();
+  const { triggerLoginTransition, triggerCoordinatorTransition } = useAuthTransition();
+  const location = useLocation();
+  const returnedFromLogin = location.state?.returnedFromLogin;
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const isClickScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
-
-  const handleLogout = () => {
-    logout();
-    navigate('/', { replace: true });
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,6 +85,8 @@ export function LandingNavbar({ onOpenCredentials }) {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        returnedFromLogin ? 'animate-in fade-in duration-700 ease-out' : ''
+      } ${
         isScrolled
           ? 'bg-[#F8F5F1]/95 backdrop-blur-md border-b border-[#E4D9CB] shadow-sm py-2.5'
           : 'bg-transparent border-b border-transparent py-4'
@@ -157,70 +155,37 @@ export function LandingNavbar({ onOpenCredentials }) {
           </div>
         </nav>
 
-        {/* Right Section: Auth Actions (Desktop) */}
+        {/* Right Section: Public Navigation Actions (Desktop) */}
         <div className="hidden md:flex items-center gap-3 min-w-[280px] justify-end">
-          {loading ? (
-            <div
-              className={`h-9 w-44 rounded-full animate-pulse ${
-                isScrolled ? 'bg-[#292E35]/5' : 'bg-white/10'
-              }`}
-            />
-          ) : isAuthenticated ? (
-            <>
-              {/* Authenticated Role-Specific Dashboard Button */}
-              <Link
-                to={isStudent ? '/student/dashboard' : '/coordinator/dashboard'}
-                className="px-4 lg:px-5 py-2 text-xs lg:text-sm font-semibold text-[#292E35] bg-[#EACBA5] hover:bg-[#DEB887] rounded-full shadow-sm transition-all flex items-center gap-1.5 hover:scale-105"
-              >
-                {isStudent ? (
-                  <GraduationCap className="w-4 h-4 text-[#292E35]" />
-                ) : (
-                  <Users className="w-4 h-4 text-[#292E35]" />
-                )}
-                <span>{isStudent ? 'Student Dashboard' : 'Coordinator Dashboard'}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+          {/* Student Login - Outlined Pill */}
+          <Link
+            to="/login"
+            onClick={(e) => {
+              e.preventDefault();
+              triggerLoginTransition();
+            }}
+            className={`px-4 lg:px-5 py-2 text-xs lg:text-sm font-medium rounded-full transition-all flex items-center gap-1.5 hover:scale-105 ${
+              isScrolled
+                ? 'text-[#292E35] border border-[#292E35] hover:bg-[#292E35]/5'
+                : 'text-white border border-white/60 hover:border-white hover:bg-white/10'
+            }`}
+          >
+            <GraduationCap className="w-4 h-4" />
+            <span>Student Login</span>
+          </Link>
 
-              {/* Explicit Logout Action */}
-              <button
-                type="button"
-                onClick={handleLogout}
-                className={`px-3.5 lg:px-4 py-2 text-xs lg:text-sm font-medium rounded-full transition-all flex items-center gap-1.5 hover:scale-105 cursor-pointer ${
-                  isScrolled
-                    ? 'text-[#292E35] border border-[#292E35]/40 hover:border-[#292E35] hover:bg-[#292E35]/5'
-                    : 'text-white border border-white/60 hover:border-white hover:bg-white/10'
-                }`}
-                title="Log out of EVA"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-                <span>Logout</span>
-              </button>
-            </>
-          ) : (
-            <>
-              {/* Student Login - Outlined Pill */}
-              <Link
-                to="/login"
-                className={`px-4 lg:px-5 py-2 text-xs lg:text-sm font-medium rounded-full transition-all flex items-center gap-1.5 hover:scale-105 ${
-                  isScrolled
-                    ? 'text-[#292E35] border border-[#292E35] hover:bg-[#292E35]/5'
-                    : 'text-white border border-white/60 hover:border-white hover:bg-white/10'
-                }`}
-              >
-                <GraduationCap className="w-4 h-4" />
-                <span>Student Login</span>
-              </Link>
-
-              {/* Coordinator Portal / Login - Filled Gold Pill */}
-              <Link
-                to="/coordinator/login"
-                className="px-4 lg:px-5 py-2 text-xs lg:text-sm font-medium text-white bg-[#B49168] hover:bg-[#9E7D58] rounded-full shadow-sm transition-all flex items-center gap-1.5 hover:scale-105"
-              >
-                <Users className="w-4 h-4" />
-                <span>Coordinator Login</span>
-              </Link>
-            </>
-          )}
+          {/* Coordinator Portal - Filled Gold Pill */}
+          <Link
+            to="/coordinator/login"
+            onClick={(e) => {
+              e.preventDefault();
+              triggerCoordinatorTransition();
+            }}
+            className="px-4 lg:px-5 py-2 text-xs lg:text-sm font-medium text-white bg-[#B49168] hover:bg-[#9E7D58] rounded-full shadow-sm transition-all flex items-center gap-1.5 hover:scale-105"
+          >
+            <Users className="w-4 h-4" />
+            <span>Coordinator Portal</span>
+          </Link>
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -273,51 +238,30 @@ export function LandingNavbar({ onOpenCredentials }) {
           </div>
 
           <div className="pt-4 border-t border-[#E4D9CB] flex flex-col gap-2.5">
-            {loading ? (
-              <div className="h-10 w-full rounded-full bg-[#EACBA5]/20 animate-pulse" />
-            ) : isAuthenticated ? (
-              <>
-                <Link
-                  to={isStudent ? '/student/dashboard' : '/coordinator/dashboard'}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 text-center text-sm font-semibold text-[#292E35] bg-[#EACBA5] rounded-full shadow-sm flex items-center justify-center gap-2"
-                >
-                  {isStudent ? <GraduationCap className="w-4 h-4" /> : <Users className="w-4 h-4" />}
-                  <span>{isStudent ? 'Student Dashboard' : 'Coordinator Dashboard'}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    handleLogout();
-                  }}
-                  className="w-full py-2.5 text-center text-sm font-semibold text-[#292E35] border border-[#292E35]/40 rounded-full flex items-center justify-center gap-2 hover:bg-[#292E35]/5 cursor-pointer"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span>Logout</span>
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 text-center text-sm font-semibold text-[#292E35] border border-[#292E35] rounded-full flex items-center justify-center gap-2"
-                >
-                  <GraduationCap className="w-4 h-4" />
-                  Student Login
-                </Link>
-                <Link
-                  to="/coordinator/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-2.5 text-center text-sm font-semibold text-white bg-[#B49168] rounded-full flex items-center justify-center gap-2 shadow-sm"
-                >
-                  <Users className="w-4 h-4" />
-                  Coordinator Login
-                </Link>
-              </>
-            )}
+            <Link
+              to="/login"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                triggerLoginTransition();
+              }}
+              className="w-full py-2.5 text-center text-sm font-semibold text-[#292E35] border border-[#292E35] rounded-full flex items-center justify-center gap-2"
+            >
+              <GraduationCap className="w-4 h-4" />
+              <span>Student Login</span>
+            </Link>
+            <Link
+              to="/coordinator/login"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileMenuOpen(false);
+                triggerCoordinatorTransition();
+              }}
+              className="w-full py-2.5 text-center text-sm font-semibold text-white bg-[#B49168] rounded-full flex items-center justify-center gap-2 shadow-sm"
+            >
+              <Users className="w-4 h-4" />
+              <span>Coordinator Portal</span>
+            </Link>
           </div>
         </div>
       )}

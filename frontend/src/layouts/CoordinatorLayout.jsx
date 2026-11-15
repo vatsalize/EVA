@@ -19,7 +19,7 @@ export function CoordinatorLayout() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#F6F3EE]">
         <LoadingSpinner message="Verifying Coordinator Credentials..." size="lg" />
       </div>
     );
@@ -53,21 +53,21 @@ export function CoordinatorLayout() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-[#F6F3EE]">
       <Navbar />
 
       {/* Reminder Banner for demo password */}
       {user.mustChangePassword && (
-        <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-xs text-amber-900 flex items-center justify-between max-w-7xl mx-auto w-full">
+        <div className="bg-[#EDE5D9] border-b border-[#DFD0BE] px-4 py-2.5 text-xs text-[#966014] flex items-center justify-between max-w-7xl mx-auto w-full">
           <div className="flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 text-amber-600 flex-shrink-0" />
+            <ShieldAlert className="w-4 h-4 text-[#966014] flex-shrink-0" />
             <span>
               <strong>Security Notice:</strong> You are using default demo credentials (<code>EVA-Demo@2026</code>). Please update your password.
             </span>
           </div>
           <button
             onClick={() => setPwModalOpen(true)}
-            className="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors ml-4"
+            className="px-3 py-1 bg-[#262B32] hover:bg-[#191F24] text-white font-medium rounded-lg transition-colors ml-4 cursor-pointer"
           >
             Change Password
           </button>
@@ -87,7 +87,7 @@ export function CoordinatorLayout() {
       >
         <form onSubmit={handlePasswordSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-bold text-[#262B32] uppercase tracking-wider mb-1">
               Current Temporary Password
             </label>
             <input
@@ -96,12 +96,12 @@ export function CoordinatorLayout() {
               value={currentPw}
               onChange={(e) => setCurrentPw(e.target.value)}
               placeholder="e.g. EVA-Demo@2026"
-              className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-900 focus:outline-none"
+              className="w-full px-3 py-2 text-sm bg-[#FFFDFC] border border-[#DFD0BE] rounded-xl text-[#262B32] focus:ring-2 focus:ring-[#B8956B] focus:outline-none transition-all"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-bold text-[#262B32] uppercase tracking-wider mb-1">
               New Password
             </label>
             <input
@@ -110,12 +110,12 @@ export function CoordinatorLayout() {
               value={newPw}
               onChange={(e) => setNewPw(e.target.value)}
               placeholder="Minimum 6 characters"
-              className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-900 focus:outline-none"
+              className="w-full px-3 py-2 text-sm bg-[#FFFDFC] border border-[#DFD0BE] rounded-xl text-[#262B32] focus:ring-2 focus:ring-[#B8956B] focus:outline-none transition-all"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-bold text-[#262B32] uppercase tracking-wider mb-1">
               Confirm New Password
             </label>
             <input
@@ -124,7 +124,7 @@ export function CoordinatorLayout() {
               value={confirmPw}
               onChange={(e) => setConfirmPw(e.target.value)}
               placeholder="Repeat new password"
-              className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-900 focus:outline-none"
+              className="w-full px-3 py-2 text-sm bg-[#FFFDFC] border border-[#DFD0BE] rounded-xl text-[#262B32] focus:ring-2 focus:ring-[#B8956B] focus:outline-none transition-all"
             />
           </div>
 
@@ -132,14 +132,14 @@ export function CoordinatorLayout() {
             <button
               type="button"
               onClick={() => setPwModalOpen(false)}
-              className="px-4 py-2 text-sm text-slate-600 hover:text-slate-800"
+              className="px-4 py-2 text-sm text-[#68635D] hover:text-[#262B32] cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="px-5 py-2 text-sm font-semibold text-white bg-brand-900 hover:bg-brand-800 rounded-xl shadow-sm transition-colors"
+              className="px-5 py-2 text-sm font-semibold text-white bg-[#262B32] hover:bg-[#191F24] rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               {submitting ? 'Updating...' : 'Save New Password'}
             </button>

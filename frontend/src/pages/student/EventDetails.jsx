@@ -106,22 +106,22 @@ export function EventDetails() {
       {/* Back button */}
       <Link
         to="/student/explore"
-        className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+        className="inline-flex items-center gap-2 text-xs font-bold text-[#87613B] hover:text-[#262B32] transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Explore Events</span>
       </Link>
 
       {/* Main Event Card */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
+      <div className="bg-[#FFFDFC] rounded-3xl border border-[#DFD0BE] p-8 shadow-xs">
         
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-brand-900 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
+            <span className="text-xs font-bold text-[#262B32] bg-[#EDE5D9] px-3 py-1 rounded-full border border-[#DFD0BE]">
               {event.category}
             </span>
-            <span className="text-xs font-medium text-slate-500">
-              Organized by <strong className="text-slate-800">{event.club_name}</strong>
+            <span className="text-xs font-medium text-[#68635D]">
+              Organized by <strong className="text-[#262B32]">{event.club_name}</strong>
             </span>
           </div>
 
@@ -130,66 +130,66 @@ export function EventDetails() {
           </Badge>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#262B32] tracking-tight mb-4">
           {event.title}
         </h1>
 
-        <p className="text-base text-slate-600 leading-relaxed mb-8">
+        <p className="text-base text-[#68635D] leading-relaxed mb-8">
           {event.description || 'Join your fellow students for this campus event.'}
         </p>
 
         {/* Schedule & Location Box */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-200/80 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 rounded-2xl bg-[#F6F3EE] border border-[#DFD0BE]/80 mb-8">
           <div className="flex items-start gap-3">
-            <div className="p-2.5 rounded-xl bg-white border border-slate-200 text-brand-900">
+            <div className="p-2.5 rounded-xl bg-[#FFFDFC] border border-[#DFD0BE] text-[#87613B] shadow-xs">
               <Calendar className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Date</div>
-              <div className="text-sm font-bold text-slate-900">{event.event_date}</div>
+              <div className="text-[11px] font-bold text-[#68635D] uppercase tracking-wider">Date</div>
+              <div className="text-sm font-bold text-[#262B32]">{event.event_date}</div>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
-            <div className="p-2.5 rounded-xl bg-white border border-slate-200 text-brand-900">
+            <div className="p-2.5 rounded-xl bg-[#FFFDFC] border border-[#DFD0BE] text-[#87613B] shadow-xs">
               <Clock className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Time</div>
-              <div className="text-sm font-bold text-slate-900">{event.start_time} - {event.end_time}</div>
+              <div className="text-[11px] font-bold text-[#68635D] uppercase tracking-wider">Time</div>
+              <div className="text-sm font-bold text-[#262B32]">{event.start_time} - {event.end_time}</div>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
-            <div className="p-2.5 rounded-xl bg-white border border-slate-200 text-brand-900">
+            <div className="p-2.5 rounded-xl bg-[#FFFDFC] border border-[#DFD0BE] text-[#87613B] shadow-xs">
               <MapPin className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Venue</div>
-              <div className="text-sm font-bold text-slate-900 truncate">
+              <div className="text-[11px] font-bold text-[#68635D] uppercase tracking-wider">Venue</div>
+              <div className="text-sm font-bold text-[#262B32] truncate">
                 {event.venue_name || 'Campus Venue'}
               </div>
-              <div className="text-xs text-slate-500">{event.venue_building || 'Campus'}</div>
+              <div className="text-xs text-[#68635D]">{event.venue_building || 'Campus'}</div>
             </div>
           </div>
         </div>
 
         {/* Registration & Capacity Progress */}
-        <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="border-t border-[#DFD0BE] pt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Users className="w-4 h-4 text-slate-400" />
-              <span className="text-sm font-bold text-slate-800">
+              <Users className="w-4 h-4 text-[#8C857D]" />
+              <span className="text-sm font-bold text-[#262B32]">
                 {event.registered_count} / {event.registration_capacity} registered
               </span>
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-[#68635D]">
                 ({event.remaining_capacity} seats available)
               </span>
             </div>
-            <div className="w-64 bg-slate-100 rounded-full h-2 overflow-hidden">
+            <div className="w-64 bg-[#EDE5D9] rounded-full h-2 overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all ${
-                  event.is_full ? 'bg-red-500' : 'bg-emerald-500'
+                  event.is_full ? 'bg-[#B83D3D]' : 'bg-[#237451]'
                 }`}
                 style={{
                   width: `${Math.min(100, Math.round((event.registered_count / event.registration_capacity) * 100))}%`
@@ -202,13 +202,13 @@ export function EventDetails() {
           <div>
             {userState?.isRegistered ? (
               <div className="flex items-center gap-3">
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#237451] bg-[#237451]/10 px-3 py-2 rounded-xl border border-[#237451]/30">
+                  <CheckCircle2 className="w-4 h-4 text-[#237451]" />
                   Pass Confirmed
                 </span>
                 <button
                   onClick={() => setShowQRModal(true)}
-                  className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs rounded-xl shadow-md transition-all flex items-center gap-2"
+                  className="px-5 py-2.5 bg-[#262B32] hover:bg-[#191F24] text-white font-semibold text-xs rounded-xl shadow-xs transition-all flex items-center gap-2 cursor-pointer hover:scale-[1.01]"
                 >
                   <Ticket className="w-4 h-4" />
                   <span>View Digital Pass</span>
@@ -217,7 +217,7 @@ export function EventDetails() {
             ) : event.is_full ? (
               <button
                 disabled
-                className="px-6 py-3 bg-slate-100 text-slate-400 font-semibold text-sm rounded-xl cursor-not-allowed"
+                className="px-6 py-3 bg-[#EDE5D9] text-[#68635D] font-semibold text-sm rounded-xl cursor-not-allowed border border-[#DFD0BE]"
               >
                 Event Capacity Reached
               </button>
@@ -225,7 +225,7 @@ export function EventDetails() {
               <button
                 onClick={handleRegister}
                 disabled={registering}
-                className="px-8 py-3.5 bg-brand-900 hover:bg-brand-800 text-white font-bold text-sm rounded-2xl shadow-lg shadow-brand-900/10 transition-all flex items-center gap-2"
+                className="px-8 py-3.5 bg-[#262B32] hover:bg-[#191F24] text-white font-bold text-sm rounded-2xl shadow-md transition-all flex items-center gap-2 cursor-pointer hover:scale-[1.01]"
               >
                 {registering ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -244,8 +244,8 @@ export function EventDetails() {
 
       {/* Facilities & Coordinator Details */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <div className="bg-white rounded-3xl p-6 border border-slate-200">
-          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3">
+        <div className="bg-[#FFFDFC] rounded-3xl p-6 border border-[#DFD0BE] shadow-xs">
+          <h3 className="text-sm font-bold text-[#262B32] uppercase tracking-wider mb-3">
             Room Facilities
           </h3>
           {event.required_facilities && event.required_facilities.length > 0 ? (
@@ -253,25 +253,25 @@ export function EventDetails() {
               {event.required_facilities.map((fac, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg capitalize"
+                  className="px-3 py-1 bg-[#EDE5D9] text-[#262B32] border border-[#DFD0BE] text-xs font-semibold rounded-lg capitalize"
                 >
                   {fac.replace('_', ' ')}
                 </span>
               ))}
             </div>
           ) : (
-            <p className="text-xs text-slate-500">Standard campus venue equipment provided.</p>
+            <p className="text-xs text-[#68635D]">Standard campus venue equipment provided.</p>
           )}
         </div>
 
-        <div className="bg-white rounded-3xl p-6 border border-slate-200">
-          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3">
+        <div className="bg-[#FFFDFC] rounded-3xl p-6 border border-[#DFD0BE] shadow-xs">
+          <h3 className="text-sm font-bold text-[#262B32] uppercase tracking-wider mb-3">
             Club In-Charge
           </h3>
-          <div className="text-sm text-slate-800 font-semibold">
+          <div className="text-sm text-[#262B32] font-semibold">
             {event.coordinator_name || 'Club Coordinator'}
           </div>
-          <div className="text-xs text-slate-500">
+          <div className="text-xs text-[#68635D]">
             {event.coordinator_email || 'coordinator@thapar.edu'}
           </div>
         </div>

@@ -85,31 +85,31 @@ export function ExploreEvents() {
       
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#262B32] tracking-tight">
           Explore Campus Events
         </h1>
-        <p className="text-sm text-slate-500 mt-1">
+        <p className="text-sm text-[#68635D] mt-1">
           Discover hackathons, workshops, cultural nights, and guest lectures across Thapar campus.
         </p>
       </div>
 
       {/* Search & Filters Card */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-4">
+      <div className="bg-[#FFFDFC] rounded-3xl p-5 border border-[#DFD0BE] shadow-xs space-y-4">
         
         {/* Search Bar */}
         <div className="relative">
-          <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+          <Search className="w-5 h-5 text-[#8C857D] absolute left-4 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by event title, organizing club, or keywords..."
-            className="w-full pl-11 pr-4 py-3 text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:bg-white focus:ring-2 focus:ring-brand-900 focus:outline-none transition-all"
+            className="w-full pl-11 pr-4 py-3 text-sm bg-[#F6F3EE] border border-[#DFD0BE] rounded-2xl text-[#262B32] placeholder:text-[#9CA3AF] focus:bg-[#FFFDFC] focus:ring-2 focus:ring-[#B8956B] focus:outline-none transition-all"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-[#68635D] hover:text-[#262B32]"
             >
               <X className="w-4 h-4" />
             </button>
@@ -119,13 +119,13 @@ export function ExploreEvents() {
         {/* Filter Row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-[#68635D] uppercase tracking-wider mb-1">
               Category
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-900 focus:outline-none"
+              className="w-full px-3 py-2 bg-[#F6F3EE] border border-[#DFD0BE] rounded-xl text-[#262B32] focus:ring-2 focus:ring-[#B8956B] focus:outline-none"
             >
               <option value="">All Categories</option>
               <option value="Technical">Technical</option>
@@ -139,13 +139,13 @@ export function ExploreEvents() {
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-[#68635D] uppercase tracking-wider mb-1">
               Organizing Club
             </label>
             <select
               value={clubId}
               onChange={(e) => setClubId(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-900 focus:outline-none"
+              className="w-full px-3 py-2 bg-[#F6F3EE] border border-[#DFD0BE] rounded-xl text-[#262B32] focus:ring-2 focus:ring-[#B8956B] focus:outline-none"
             >
               <option value="">All Clubs</option>
               {clubs.map((c) => (
@@ -157,13 +157,13 @@ export function ExploreEvents() {
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-[#68635D] uppercase tracking-wider mb-1">
               Venue
             </label>
             <select
               value={venueId}
               onChange={(e) => setVenueId(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-900 focus:outline-none"
+              className="w-full px-3 py-2 bg-[#F6F3EE] border border-[#DFD0BE] rounded-xl text-[#262B32] focus:ring-2 focus:ring-[#B8956B] focus:outline-none"
             >
               <option value="">All Venues</option>
               {venues.map((v) => (
@@ -175,26 +175,26 @@ export function ExploreEvents() {
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-[#68635D] uppercase tracking-wider mb-1">
               Event Date
             </label>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-900 focus:outline-none"
+              className="w-full px-3 py-2 bg-[#F6F3EE] border border-[#DFD0BE] rounded-xl text-[#262B32] focus:ring-2 focus:ring-[#B8956B] focus:outline-none"
             />
           </div>
         </div>
 
         {hasActiveFilters && (
-          <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
-            <span className="text-slate-500">
+          <div className="flex items-center justify-between pt-2 border-t border-[#DFD0BE] text-xs">
+            <span className="text-[#68635D]">
               Showing filtered results ({events.length} found)
             </span>
             <button
               onClick={clearFilters}
-              className="text-brand-900 hover:underline font-semibold flex items-center gap-1"
+              className="text-[#87613B] hover:underline font-bold flex items-center gap-1 cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
               Reset all filters
@@ -219,57 +219,57 @@ export function ExploreEvents() {
           {events.map((evt) => (
             <div
               key={evt.event_id}
-              className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:border-brand-400 hover:shadow-lg transition-all flex flex-col justify-between group"
+              className="bg-[#FFFDFC] rounded-3xl border border-[#DFD0BE] p-6 shadow-xs hover:border-[#B8956B] hover:shadow-md transition-all flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold text-brand-900 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
+                  <span className="text-xs font-bold text-[#262B32] bg-[#EDE5D9] px-3 py-1 rounded-full border border-[#DFD0BE]">
                     {evt.category}
                   </span>
                   
                   {evt.is_full ? (
-                    <span className="text-xs font-bold text-red-600 bg-red-50 px-2.5 py-0.5 rounded-full border border-red-100">
+                    <span className="text-xs font-bold text-[#B83D3D] bg-[#B83D3D]/10 px-2.5 py-0.5 rounded-full border border-[#B83D3D]/30">
                       Full Capacity
                     </span>
                   ) : (
-                    <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-100">
+                    <span className="text-xs font-semibold text-[#237451] bg-[#237451]/10 px-2.5 py-0.5 rounded-full border border-[#237451]/30">
                       {evt.remaining_capacity} seats left
                     </span>
                   )}
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-brand-900 transition-colors line-clamp-1">
+                <h3 className="text-lg font-bold text-[#262B32] mb-1 group-hover:text-[#87613B] transition-colors line-clamp-1">
                   {evt.title}
                 </h3>
                 
-                <p className="text-xs font-medium text-slate-500 mb-4">
+                <p className="text-xs font-medium text-[#68635D] mb-4">
                   {evt.club_name}
                 </p>
 
-                <p className="text-xs text-slate-600 line-clamp-2 mb-5 leading-relaxed">
+                <p className="text-xs text-[#68635D] line-clamp-2 mb-5 leading-relaxed">
                   {evt.description || 'Join this exciting campus event organized by the club.'}
                 </p>
 
                 {/* Event Schedule & Location */}
-                <div className="bg-slate-50 rounded-2xl p-3.5 text-xs text-slate-600 space-y-2 mb-6">
+                <div className="bg-[#F6F3EE] rounded-2xl p-3.5 border border-[#DFD0BE]/60 text-xs text-[#68635D] space-y-2 mb-6">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-brand-700 flex-shrink-0" />
-                    <span className="font-semibold text-slate-800">{evt.event_date}</span>
+                    <Calendar className="w-4 h-4 text-[#87613B] flex-shrink-0" />
+                    <span className="font-semibold text-[#262B32]">{evt.event_date}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-brand-700 flex-shrink-0" />
-                    <span>{evt.start_time} - {evt.end_time}</span>
+                    <Clock className="w-4 h-4 text-[#87613B] flex-shrink-0" />
+                    <span className="text-[#262B32]">{evt.start_time} - {evt.end_time}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-brand-700 flex-shrink-0" />
-                    <span className="truncate">{evt.venue_name || 'Campus Venue'} ({evt.venue_building || 'Campus'})</span>
+                    <MapPin className="w-4 h-4 text-[#87613B] flex-shrink-0" />
+                    <span className="truncate text-[#262B32]">{evt.venue_name || 'Campus Venue'} ({evt.venue_building || 'Campus'})</span>
                   </div>
                 </div>
               </div>
 
               <Link
                 to={`/student/events/${evt.event_id}`}
-                className="w-full py-3 px-4 bg-brand-900 hover:bg-brand-800 text-white text-xs font-semibold rounded-2xl text-center shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 px-4 bg-[#262B32] hover:bg-[#191F24] text-white text-xs font-bold rounded-2xl text-center shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
               >
                 <span>View Event Details</span>
               </Link>

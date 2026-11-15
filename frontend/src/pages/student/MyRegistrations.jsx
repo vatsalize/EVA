@@ -62,10 +62,10 @@ export function MyRegistrations() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#262B32] tracking-tight">
           My Registered Passes
         </h1>
-        <p className="text-sm text-slate-500 mt-1">
+        <p className="text-sm text-[#68635D] mt-1">
           Access your unique digital QR tickets to scan at venue entrances.
         </p>
       </div>
@@ -83,11 +83,11 @@ export function MyRegistrations() {
           {registrations.map((reg) => (
             <div
               key={reg.registration_id}
-              className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:border-brand-400 hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-[#FFFDFC] rounded-3xl border border-[#DFD0BE] p-6 shadow-xs hover:border-[#B8956B] hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold text-brand-900 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
+                  <span className="text-xs font-bold text-[#262B32] bg-[#EDE5D9] px-3 py-1 rounded-full border border-[#DFD0BE]">
                     {reg.event_category}
                   </span>
 
@@ -101,23 +101,23 @@ export function MyRegistrations() {
                   )}
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 mb-1 leading-snug line-clamp-1">
+                <h3 className="text-lg font-bold text-[#262B32] mb-1 leading-snug line-clamp-1">
                   {reg.event_title}
                 </h3>
-                <p className="text-xs font-medium text-slate-500 mb-4">{reg.club_name}</p>
+                <p className="text-xs font-medium text-[#68635D] mb-4">{reg.club_name}</p>
 
-                <div className="bg-slate-50 rounded-2xl p-4 text-xs text-slate-600 space-y-2 mb-6">
+                <div className="bg-[#F6F3EE] rounded-2xl p-4 border border-[#DFD0BE]/60 text-xs text-[#68635D] space-y-2 mb-6">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-brand-700" />
-                    <span className="font-semibold text-slate-800">{reg.event_date}</span>
+                    <Calendar className="w-4 h-4 text-[#87613B]" />
+                    <span className="font-semibold text-[#262B32]">{reg.event_date}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-brand-700" />
-                    <span>{reg.start_time} - {reg.end_time}</span>
+                    <Clock className="w-4 h-4 text-[#87613B]" />
+                    <span className="text-[#262B32]">{reg.start_time} - {reg.end_time}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-brand-700" />
-                    <span className="truncate">{reg.venue_name || 'Campus Venue'} ({reg.venue_building || 'Campus'})</span>
+                    <MapPin className="w-4 h-4 text-[#87613B]" />
+                    <span className="truncate text-[#262B32]">{reg.venue_name || 'Campus Venue'} ({reg.venue_building || 'Campus'})</span>
                   </div>
                 </div>
               </div>
@@ -125,7 +125,7 @@ export function MyRegistrations() {
               <div className="space-y-2">
                 <button
                   onClick={() => setSelectedQR(reg)}
-                  className="w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3 px-4 bg-[#262B32] hover:bg-[#191F24] text-white text-xs font-bold rounded-2xl shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
                 >
                   <QrCode className="w-4 h-4" />
                   <span>Show Digital QR Ticket</span>
@@ -134,7 +134,7 @@ export function MyRegistrations() {
                 {!reg.hasCheckedIn && reg.event_status !== 'COMPLETED' && (
                   <button
                     onClick={() => setCancelModalItem(reg)}
-                    className="w-full py-2 text-xs font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-xl transition-colors"
+                    className="w-full py-2 text-xs font-medium text-[#B83D3D] hover:bg-[#B83D3D]/10 rounded-xl transition-colors cursor-pointer"
                   >
                     Cancel Registration
                   </button>
@@ -159,16 +159,16 @@ export function MyRegistrations() {
         title="Cancel Event Registration?"
       >
         <div className="space-y-4">
-          <p className="text-sm text-slate-600">
+          <p className="text-sm text-[#68635D]">
             Are you sure you want to cancel your pass for{' '}
-            <strong>{cancelModalItem?.event_title}</strong>? Your seat will be released back to other students.
+            <strong className="text-[#262B32]">{cancelModalItem?.event_title}</strong>? Your seat will be released back to other students.
           </p>
 
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="button"
               onClick={() => setCancelModalItem(null)}
-              className="px-4 py-2 text-sm text-slate-600 hover:text-slate-800"
+              className="px-4 py-2 text-sm text-[#68635D] hover:text-[#262B32] cursor-pointer"
             >
               Keep My Pass
             </button>
@@ -176,7 +176,7 @@ export function MyRegistrations() {
               type="button"
               disabled={cancelling}
               onClick={handleCancelRegistration}
-              className="px-5 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-xl shadow-sm transition-colors"
+              className="px-5 py-2 text-sm font-semibold text-white bg-[#B83D3D] hover:bg-[#992626] rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               {cancelling ? 'Cancelling...' : 'Yes, Cancel Pass'}
             </button>

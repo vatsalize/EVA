@@ -18,6 +18,14 @@ export function LandingPage() {
   const [loading, setLoading] = useState(true);
   const [evaluatorModalOpen, setEvaluatorModalOpen] = useState(false);
 
+  // Remove visible vertical scrollbar on landing page only while preserving all scrolling
+  useEffect(() => {
+    document.documentElement.classList.add('landing-page-active');
+    return () => {
+      document.documentElement.classList.remove('landing-page-active');
+    };
+  }, []);
+
   useEffect(() => {
     async function fetchStats() {
       try {

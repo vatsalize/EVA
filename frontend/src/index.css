@@ -9,6 +9,20 @@ html {
 :root {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color-scheme: light;
+  --eva-charcoal: #262B32;
+  --eva-deep: #191F24;
+  --eva-gold: #B8956B;
+  --eva-champagne: #EACBA5;
+  --eva-bg: #F6F3EE;
+  --eva-card: #FFFDFC;
+  --eva-beige: #EDE5D9;
+  --eva-border: #DFD0BE;
+  --eva-text: #262B32;
+  --eva-subtext: #68635D;
+  --eva-darkgold: #87613B;
+  --eva-success: #237451;
+  --eva-warning: #966014;
+  --eva-error: #B83D3D;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -17,25 +31,28 @@ h1, h2, h3, h4, h5, h6 {
 
 body {
   margin: 0;
-  background-color: #f8fafc;
-  color: #292E35;
+  background-color: #F6F3EE;
+  color: #262B32;
   min-height: 100vh;
 }
 
 ::selection {
   background-color: #EACBA5;
-  color: #292E35;
+  color: #262B32;
 }
 
-/* Custom glow and backdrop effects */
-.glow-purple {
-  box-shadow: 0 0 40px -10px rgba(168, 85, 247, 0.4);
+/* =========================================================================
+   GLOBAL: Hide visually distracting scrollbars while preserving full
+   mouse wheel, touch, keyboard, trackpad, and page scrolling.
+   ========================================================================= */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.glow-card {
-  box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.15);
-}
-
-.glow-card:hover {
-  box-shadow: 0 15px 40px -5px rgba(168, 85, 247, 0.3);
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
 }

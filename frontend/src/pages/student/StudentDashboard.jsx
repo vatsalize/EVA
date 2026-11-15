@@ -66,60 +66,60 @@ export function StudentDashboard() {
     <div className="space-y-8 animate-in fade-in duration-300">
       
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-brand-900 to-slate-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-[#191F24] border border-[#262B32] rounded-3xl p-8 text-white shadow-md relative overflow-hidden">
         <div className="relative z-10 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-brand-200 text-xs font-semibold mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[#EACBA5] border border-white/15 text-xs font-semibold mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-[#EACBA5]" />
             Thapar Institute Student Portal
           </div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">
+          <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-white">
             Welcome back, {user?.fullName}!
           </h1>
-          <p className="text-slate-300 text-sm leading-relaxed mb-6">
+          <p className="text-[#DFD0BE] text-sm leading-relaxed mb-6">
             Explore upcoming technical symposiums, workshops, and cultural fests. Access your digital QR event passes anytime.
           </p>
 
           <Link
             to="/student/explore"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-md"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#EACBA5] hover:bg-[#DFBF99] text-[#262B32] font-bold text-sm transition-all shadow-xs hover:scale-[1.01] cursor-pointer"
           >
             <span>Explore Campus Events</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        {/* Background accent ring */}
-        <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-blue-600/10 rounded-full blur-2xl pointer-events-none" />
+        {/* Subtle accent glow */}
+        <div className="absolute -right-12 -bottom-12 w-64 h-64 bg-[#B8956B]/10 rounded-full blur-2xl pointer-events-none" />
       </div>
 
       {/* KPI Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="bg-[#FFFDFC] p-6 rounded-2xl border border-[#DFD0BE] shadow-xs flex items-center justify-between">
           <div>
-            <div className="text-2xl font-bold text-slate-900">{stats.registered}</div>
-            <div className="text-xs font-medium text-slate-500 mt-0.5">Events Registered</div>
+            <div className="text-2xl font-black text-[#262B32]">{stats.registered}</div>
+            <div className="text-xs font-semibold text-[#68635D] mt-0.5">Events Registered</div>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-[#EDE5D9] text-[#87613B] flex items-center justify-center">
             <Ticket className="w-6 h-6" />
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="bg-[#FFFDFC] p-6 rounded-2xl border border-[#DFD0BE] shadow-xs flex items-center justify-between">
           <div>
-            <div className="text-2xl font-bold text-slate-900">{stats.attended}</div>
-            <div className="text-xs font-medium text-slate-500 mt-0.5">Verified Footfall / Attended</div>
+            <div className="text-2xl font-black text-[#262B32]">{stats.attended}</div>
+            <div className="text-xs font-semibold text-[#68635D] mt-0.5">Verified Footfall / Attended</div>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-[#237451]/10 text-[#237451] flex items-center justify-center">
             <CheckCircle2 className="w-6 h-6" />
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="bg-[#FFFDFC] p-6 rounded-2xl border border-[#DFD0BE] shadow-xs flex items-center justify-between">
           <div>
-            <div className="text-2xl font-bold text-slate-900">{stats.feedback}</div>
-            <div className="text-xs font-medium text-slate-500 mt-0.5">Reviews Submitted</div>
+            <div className="text-2xl font-black text-[#262B32]">{stats.feedback}</div>
+            <div className="text-xs font-semibold text-[#68635D] mt-0.5">Reviews Submitted</div>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-[#EACBA5]/30 text-[#87613B] flex items-center justify-center">
             <Sparkles className="w-6 h-6" />
           </div>
         </div>
@@ -128,10 +128,10 @@ export function StudentDashboard() {
       {/* My Upcoming Event Passes */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-slate-900">My Registered Passes</h2>
+          <h2 className="text-xl font-bold text-[#262B32]">My Registered Passes</h2>
           <Link
             to="/student/registrations"
-            className="text-xs font-semibold text-brand-900 hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[#87613B] hover:underline flex items-center gap-1"
           >
             <span>View All ({stats.registered})</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -151,11 +151,11 @@ export function StudentDashboard() {
             {myUpcoming.map((reg) => (
               <div
                 key={reg.registration_id}
-                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-brand-300 hover:shadow-md transition-all flex flex-col justify-between"
+                className="bg-[#FFFDFC] rounded-2xl border border-[#DFD0BE] p-5 shadow-xs hover:border-[#B8956B] hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-xs font-semibold text-brand-900 bg-brand-50 px-2 py-0.5 rounded-full">
+                    <span className="text-xs font-bold text-[#262B32] bg-[#EDE5D9] border border-[#DFD0BE] px-2.5 py-0.5 rounded-full">
                       {reg.event_category}
                     </span>
                     <Badge variant={reg.hasCheckedIn ? 'success' : 'primary'}>
@@ -163,22 +163,22 @@ export function StudentDashboard() {
                     </Badge>
                   </div>
 
-                  <h3 className="text-base font-bold text-slate-900 mb-1 leading-snug line-clamp-1">
+                  <h3 className="text-base font-bold text-[#262B32] mb-1 leading-snug line-clamp-1">
                     {reg.event_title}
                   </h3>
-                  <p className="text-xs text-slate-500 mb-4">{reg.club_name}</p>
+                  <p className="text-xs text-[#68635D] mb-4">{reg.club_name}</p>
 
-                  <div className="text-xs text-slate-600 space-y-1.5 mb-5">
+                  <div className="bg-[#F6F3EE] rounded-xl p-3 border border-[#DFD0BE]/60 text-xs text-[#68635D] space-y-1.5 mb-5">
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                      <span>{reg.event_date}</span>
+                      <Calendar className="w-3.5 h-3.5 text-[#87613B]" />
+                      <span className="text-[#262B32] font-medium">{reg.event_date}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-slate-400" />
+                      <Clock className="w-3.5 h-3.5 text-[#87613B]" />
                       <span>{reg.start_time} - {reg.end_time}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                      <MapPin className="w-3.5 h-3.5 text-[#87613B]" />
                       <span className="truncate">{reg.venue_name || 'Campus Venue'}</span>
                     </div>
                   </div>
@@ -186,7 +186,7 @@ export function StudentDashboard() {
 
                 <button
                   onClick={() => setSelectedQRPass(reg)}
-                  className="w-full py-2.5 px-3 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm"
+                  className="w-full py-2.5 px-3 bg-[#262B32] hover:bg-[#191F24] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-colors shadow-xs cursor-pointer"
                 >
                   <QrCode className="w-4 h-4" />
                   <span>Show Digital Pass</span>
@@ -200,10 +200,10 @@ export function StudentDashboard() {
       {/* Featured / Explore Events */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-slate-900">Upcoming Events to Explore</h2>
+          <h2 className="text-xl font-bold text-[#262B32]">Upcoming Events to Explore</h2>
           <Link
             to="/student/explore"
-            className="text-xs font-semibold text-brand-900 hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[#87613B] hover:underline flex items-center gap-1"
           >
             <span>Explore All</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -214,30 +214,30 @@ export function StudentDashboard() {
           {exploreEvents.map((evt) => (
             <div
               key={evt.event_id}
-              className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-brand-300 hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-[#FFFDFC] rounded-2xl border border-[#DFD0BE] p-5 shadow-xs hover:border-[#B8956B] hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-semibold text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full">
+                  <span className="text-xs font-bold text-[#262B32] bg-[#EDE5D9] border border-[#DFD0BE] px-2.5 py-0.5 rounded-full">
                     {evt.category}
                   </span>
-                  <span className="text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                  <span className="text-xs font-semibold text-[#237451] bg-[#237451]/10 px-2.5 py-0.5 rounded-full border border-[#237451]/30">
                     {evt.remaining_capacity} seats left
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 mb-1 leading-snug line-clamp-1">
+                <h3 className="text-base font-bold text-[#262B32] mb-1 leading-snug line-clamp-1">
                   {evt.title}
                 </h3>
-                <p className="text-xs text-slate-500 mb-4">{evt.club_name}</p>
+                <p className="text-xs text-[#68635D] mb-4">{evt.club_name}</p>
 
-                <div className="text-xs text-slate-600 space-y-1.5 mb-5">
+                <div className="bg-[#F6F3EE] rounded-xl p-3 border border-[#DFD0BE]/60 text-xs text-[#68635D] space-y-1.5 mb-5">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                    <span>{evt.event_date}</span>
+                    <Calendar className="w-3.5 h-3.5 text-[#87613B]" />
+                    <span className="text-[#262B32] font-medium">{evt.event_date}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                    <MapPin className="w-3.5 h-3.5 text-[#87613B]" />
                     <span className="truncate">{evt.venue_name || 'Campus Venue'}</span>
                   </div>
                 </div>
@@ -245,7 +245,7 @@ export function StudentDashboard() {
 
               <Link
                 to={`/student/events/${evt.event_id}`}
-                className="w-full py-2.5 px-3 bg-brand-50 hover:bg-brand-100 text-brand-900 text-xs font-semibold rounded-xl text-center transition-colors border border-brand-200 block"
+                className="w-full py-2.5 px-3 bg-[#EDE5D9] hover:bg-[#DFD0BE] text-[#262B32] border border-[#DFD0BE] text-xs font-bold rounded-xl text-center transition-colors block shadow-xs"
               >
                 View Details & Register
               </Link>

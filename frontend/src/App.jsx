@@ -2,10 +2,13 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
+import { AuthTransitionProvider } from './context/AuthTransitionContext';
+import { SwipeTransitionOverlay } from './components/auth/SwipeTransitionOverlay';
 
 // Layouts
 import { StudentLayout } from './layouts/StudentLayout';
 import { CoordinatorLayout } from './layouts/CoordinatorLayout';
+import { AuthLayout } from './layouts/AuthLayout';
 
 // Public Pages
 import { LandingPage } from './pages/LandingPage';
@@ -39,43 +42,48 @@ export default function App() {
     <BrowserRouter>
       <ToastProvider>
         <AuthProvider>
-          <Routes>
-            {/* Public Entry Points */}
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<StudentLogin />} />
-            <Route path="/signup" element={<StudentSignup />} />
-            <Route path="/coordinator/login" element={<CoordinatorLogin />} />
+          <AuthTransitionProvider>
+            <SwipeTransitionOverlay />
+            <Routes>
+              {/* Public Entry Points */}
+              <Route path="/" element={<LandingPage />} />
+              <Route element={<AuthLayout />}>
+                <Route path="/login" element={<StudentLogin />} />
+                <Route path="/signup" element={<StudentSignup />} />
+                <Route path="/coordinator/login" element={<CoordinatorLogin />} />
+              </Route>
 
-            {/* Student Protected Portal */}
-            <Route path="/student" element={<StudentLayout />}>
-              <Route index element={<Navigate to="/student/dashboard" replace />} />
-              <Route path="dashboard" element={<StudentDashboard />} />
-              <Route path="explore" element={<ExploreEvents />} />
-              <Route path="events/:id" element={<EventDetails />} />
-              <Route path="registrations" element={<MyRegistrations />} />
-              <Route path="feedback" element={<StudentFeedback />} />
-              <Route path="profile" element={<StudentProfile />} />
-            </Route>
+              {/* Student Protected Portal */}
+              <Route path="/student" element={<StudentLayout />}>
+                <Route index element={<Navigate to="/student/dashboard" replace />} />
+                <Route path="dashboard" element={<StudentDashboard />} />
+                <Route path="explore" element={<ExploreEvents />} />
+                <Route path="events/:id" element={<EventDetails />} />
+                <Route path="registrations" element={<MyRegistrations />} />
+                <Route path="feedback" element={<StudentFeedback />} />
+                <Route path="profile" element={<StudentProfile />} />
+              </Route>
 
-            {/* Coordinator Protected Portal */}
-            <Route path="/coordinator" element={<CoordinatorLayout />}>
-              <Route index element={<Navigate to="/coordinator/dashboard" replace />} />
-              <Route path="dashboard" element={<CoordinatorDashboard />} />
-              <Route path="events" element={<CoordinatorEvents />} />
-              <Route path="events/create" element={<CreateEvent />} />
-              <Route path="venues" element={<VenueDirectory />} />
-              <Route path="booking/:eventId" element={<VenueBooking />} />
-              <Route path="scanner" element={<QRScanner />} />
-              <Route path="events/:id/registrations" element={<EventRegistrations />} />
-              <Route path="events/:id/footfall" element={<FootfallDashboard />} />
-              <Route path="events/:id/feedback" element={<CoordinatorFeedback />} />
-              <Route path="analytics" element={<CoordinatorAnalytics />} />
-              <Route path="profile" element={<CoordinatorProfile />} />
-            </Route>
+              {/* Coordinator Protected Portal */}
+              <Route path="/coordinator" element={<CoordinatorLayout />}>
+                <Route index element={<Navigate to="/coordinator/dashboard" replace />} />
+                <Route path="dashboard" element={<CoordinatorDashboard />} />
+                <Route path="events" element={<CoordinatorEvents />} />
+                <Route path="events/create" element={<CreateEvent />} />
+                <Route path="venues" element={<VenueDirectory />} />
+                <Route path="booking/:eventId" element={<VenueBooking />} />
+                <Route path="scanner" element={<QRScanner />} />
+                <Route path="events/:id/registrations" element={<EventRegistrations />} />
+                <Route path="events/:id/footfall" element={<FootfallDashboard />} />
+                <Route path="events/:id/feedback" element={<CoordinatorFeedback />} />
+                <Route path="analytics" element={<CoordinatorAnalytics />} />
+                <Route path="profile" element={<CoordinatorProfile />} />
+              </Route>
 
-            {/* Fallback Catch-All */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+              {/* Fallback Catch-All */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </AuthTransitionProvider>
         </AuthProvider>
       </ToastProvider>
     </BrowserRouter>

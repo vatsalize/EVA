@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
-import { Shield, LogIn, ArrowRight } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff, Users, Lock, User } from 'lucide-react';
+import { DemoAccountModal } from '../../components/auth/DemoAccountModal';
 
 export function CoordinatorLogin() {
   const [coordinatorId, setCoordinatorId] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
 
-  const { loginCoordinator } = useAuth();
+  const { loginCoordinator, isAuthenticated, isCoordinator, isStudent } = useAuth();
   const { success, error } = useToast();
   const navigate = useNavigate();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (isCoordinator) {
+        navigate('/coordinator/dashboard', { replace: true });
+      } else if (isStudent) {
+        navigate('/student/dashboard', { replace: true });
+      }
+    }
+  }, [isAuthenticated, isCoordinator, isStudent, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,117 +42,117 @@ export function CoordinatorLogin() {
     }
   };
 
-  const selectDemoCoord = (id) => {
-    setCoordinatorId(id);
-    setPassword('EVA-Demo@2026');
+  const handleSelectDemoCoordinator = (coord, defaultPassword) => {
+    setCoordinatorId(coord.id);
+    setPassword(defaultPassword);
+    setDemoModalOpen(false);
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-white">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <Link to="/" className="inline-flex items-center gap-2 mb-4">
-          <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-black text-2xl shadow-lg">
-            E
-          </div>
-        </Link>
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold mb-3">
-          <Shield className="w-3.5 h-3.5" />
-          Pre-Authorized Staff & Coordinators Only
-        </div>
-        <h2 className="text-3xl font-extrabold tracking-tight">Coordinator Portal</h2>
-        <p className="mt-2 text-sm text-slate-400">
-          Sign in to manage club events, book venues, and monitor live attendance.
+    <div className="w-full max-w-[420px] mx-auto py-2">
+      {/* Main Heading & Subtitle */}
+      <div className="text-center mb-6">
+        <h2 className="text-[32px] sm:text-[34px] lg:text-[36px] font-extrabold text-[#292E35] tracking-tight leading-tight">
+          Coordinator Sign In
+        </h2>
+        <p className="mt-1.5 text-xs sm:text-sm text-[#5A6068]">
+          Sign in to access your coordinator portal.
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-slate-800/90 py-8 px-6 shadow-2xl rounded-3xl border border-slate-700 sm:px-10">
-          <form className="space-y-5" onSubmit={handleSubmit}>
-            <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Coordinator ID or Assigned Email
-              </label>
-              <input
-                type="text"
-                required
-                value={coordinatorId}
-                onChange={(e) => setCoordinatorId(e.target.value)}
-                placeholder="e.g. COO001 or aarav.sharma@eva-demo.test"
-                className="w-full px-4 py-3 text-sm bg-slate-900/80 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
-              />
-            </div>
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Coordinator ID or Assigned Email */}
+        <div>
+          <label className="block text-[11px] font-bold text-[#292E35] uppercase tracking-wider mb-1.5">
+            COORDINATOR ID OR ASSIGNED EMAIL
+          </label>
+          <input
+            type="text"
+            required
+            value={coordinatorId}
+            onChange={(e) => setCoordinatorId(e.target.value)}
+            placeholder="e.g. COO001 or coordinator@thapar.edu"
+            className="w-full h-[48px] sm:h-[50px] px-4 bg-white border border-[#E4D9CB] rounded-xl text-sm sm:text-base text-[#292E35] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#B49168] focus:border-transparent transition-all shadow-xs"
+          />
+        </div>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Password
-              </label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full px-4 py-3 text-sm bg-slate-900/80 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
-              />
-            </div>
-
+        {/* Password */}
+        <div>
+          <label className="block text-[11px] font-bold text-[#292E35] uppercase tracking-wider mb-1.5">
+            PASSWORD
+          </label>
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              className="w-full h-[48px] sm:h-[50px] pl-4 pr-11 bg-white border border-[#E4D9CB] rounded-xl text-sm sm:text-base text-[#292E35] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#B49168] focus:border-transparent transition-all shadow-xs"
+            />
             <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#706A63] hover:text-[#292E35] p-1.5 transition-colors cursor-pointer"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
-              {loading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  <span>Authenticate Portal</span>
-                  <LogIn className="w-4 h-4" />
-                </>
-              )}
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
-          </form>
-
-          {/* Quick Demo Predefined Coordinators Selector */}
-          <div className="mt-6 pt-5 border-t border-slate-700/60">
-            <span className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-              Quick Test: Select Predefined Coordinator
-            </span>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => selectDemoCoord('COO001')}
-                className="py-1.5 px-2 text-xs bg-slate-700/70 hover:bg-slate-700 text-slate-200 rounded-lg text-center transition-colors"
-              >
-                COO001<br /><span className="text-[10px] text-slate-400">Coding Club</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => selectDemoCoord('COO002')}
-                className="py-1.5 px-2 text-xs bg-slate-700/70 hover:bg-slate-700 text-slate-200 rounded-lg text-center transition-colors"
-              >
-                COO002<br /><span className="text-[10px] text-slate-400">Robotics</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => selectDemoCoord('COO003')}
-                className="py-1.5 px-2 text-xs bg-slate-700/70 hover:bg-slate-700 text-slate-200 rounded-lg text-center transition-colors"
-              >
-                COO003<br /><span className="text-[10px] text-slate-400">Cultural</span>
-              </button>
-            </div>
-            <p className="text-[10px] text-slate-400 text-center mt-2">
-              Default password for all test coordinators is <code>EVA-Demo@2026</code>
-            </p>
-          </div>
-
-          <div className="mt-6 text-center text-xs text-slate-400">
-            Are you a student looking for events?{' '}
-            <Link to="/login" className="font-semibold text-blue-400 hover:underline">
-              Student Sign In
-            </Link>
           </div>
         </div>
+
+        {/* Sign In Button */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full h-[50px] sm:h-[52px] px-4 bg-[#292E35] hover:bg-[#1E2227] text-white text-sm sm:text-base font-bold rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01] active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+        >
+          {loading ? (
+            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          ) : (
+            <>
+              <span>Sign In</span>
+              <ArrowRight className="w-4 h-4" />
+            </>
+          )}
+        </button>
+      </form>
+
+      {/* View Demo Coordinator Accounts Button (Hidden by default - opens modal) */}
+      <div className="mt-3.5">
+        <button
+          type="button"
+          onClick={() => setDemoModalOpen(true)}
+          className="w-full h-[44px] sm:h-[46px] px-4 bg-[#EDE5DA] hover:bg-[#E3D9CC] border border-[#DECFC0] text-[#292E35] font-semibold rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs transition-all hover:scale-[1.01] cursor-pointer"
+        >
+          <Users className="w-4 h-4 text-[#706A63]" />
+          <span>View Demo Coordinator Accounts</span>
+          <ArrowRight className="w-3.5 h-3.5 text-[#706A63]" />
+        </button>
       </div>
+
+      {/* Student Sign In Navigation Link */}
+      <div className="mt-5 text-center">
+        <div className="text-xs sm:text-[13px] text-[#6B7280]">
+          Are you a student looking for events?{' '}
+          <Link
+            to="/login"
+            className="font-bold text-[#B49168] hover:text-[#926B3C] hover:underline transition-colors inline-flex items-center gap-1"
+          >
+            <span>Student Sign In</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </div>
+
+      {/* Demo Coordinator Accounts Selection Modal (Centered Viewport Portal) */}
+      <DemoAccountModal
+        isOpen={demoModalOpen}
+        onClose={() => setDemoModalOpen(false)}
+        type="coordinator"
+        onSelectAccount={handleSelectDemoCoordinator}
+      />
     </div>
   );
 }

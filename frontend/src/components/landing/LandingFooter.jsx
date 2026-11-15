@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useAuthTransition } from '../../context/AuthTransitionContext';
 import { Key } from 'lucide-react';
 import api from '../../services/api';
 
 export function LandingFooter({ onOpenCredentials }) {
-  const { isAuthenticated, isStudent, isCoordinator } = useAuth();
+  const { triggerLoginTransition, triggerCoordinatorTransition, triggerSignupTransition } = useAuthTransition();
   const [isConnected, setIsConnected] = useState(true);
 
   useEffect(() => {
@@ -126,22 +126,34 @@ export function LandingFooter({ onOpenCredentials }) {
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">ACCESS PORTALS</h4>
             <div className="flex flex-col gap-2 text-xs sm:text-[13px] text-slate-300">
               <Link
-                to={isAuthenticated && isStudent ? '/student/dashboard' : '/login'}
+                to="/login"
+                onClick={(e) => {
+                  e.preventDefault();
+                  triggerLoginTransition();
+                }}
                 className="hover:text-white transition-colors"
               >
-                {isAuthenticated && isStudent ? 'Student Dashboard' : 'Student Sign In & Registrations'}
+                Student Sign In &amp; Registrations
               </Link>
               <Link
-                to={isAuthenticated && isStudent ? '/student/dashboard' : '/signup'}
+                to="/signup"
+                onClick={(e) => {
+                  e.preventDefault();
+                  triggerSignupTransition();
+                }}
                 className="hover:text-white transition-colors"
               >
                 Student Account Registration
               </Link>
               <Link
-                to={isAuthenticated && isCoordinator ? '/coordinator/dashboard' : '/coordinator/login'}
+                to="/coordinator/login"
+                onClick={(e) => {
+                  e.preventDefault();
+                  triggerCoordinatorTransition();
+                }}
                 className="hover:text-white transition-colors"
               >
-                {isAuthenticated && isCoordinator ? 'Coordinator Dashboard' : 'Club Coordinator Management Portal'}
+                Club Coordinator Management Portal
               </Link>
             </div>
 

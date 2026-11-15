@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useAuthTransition } from '../../context/AuthTransitionContext';
 import { ArrowRight } from 'lucide-react';
 
 export function FinalCTASection() {
   const { isAuthenticated, isStudent, isCoordinator } = useAuth();
+  const { triggerSignupTransition } = useAuthTransition();
   return (
     <div className="pt-8 pb-14 sm:pt-10 sm:pb-16 relative bg-transparent">
       
@@ -91,6 +93,12 @@ export function FinalCTASection() {
                     ? '/coordinator/dashboard'
                     : '/signup'
                 }
+                onClick={(e) => {
+                  if (!isAuthenticated) {
+                    e.preventDefault();
+                    triggerSignupTransition();
+                  }
+                }}
                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#EACBA5] hover:bg-[#DEB887] text-[#292E35] font-bold rounded-full shadow-md hover:shadow-lg transition-all duration-300 text-xs sm:text-sm group hover:scale-105"
               >
                 <span>Get Started Now</span>

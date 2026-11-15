@@ -116,24 +116,26 @@ export function EvaluatorModal({ isOpen, onClose }) {
 
           <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400">Sample Student 1:</span>
+              <span className="text-slate-400">Ishita Singh (STU001):</span>
               <span className="font-mono text-white flex items-center gap-2">
-                aman.sharma@thapar.edu
+                STU001
                 <button
-                  onClick={() => copyToClipboard('aman.sharma@thapar.edu', 'stu1')}
+                  onClick={() => copyToClipboard('STU001', 'stu1')}
                   className="p-1 rounded bg-white/5 hover:bg-white/10"
+                  title="Copy Student ID"
                 >
                   {copiedKey === 'stu1' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
                 </button>
               </span>
             </div>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400">Sample Student 2:</span>
+              <span className="text-slate-400">Aditya Khanna (STU002):</span>
               <span className="font-mono text-white flex items-center gap-2">
-                priya.patel@thapar.edu
+                STU002
                 <button
-                  onClick={() => copyToClipboard('priya.patel@thapar.edu', 'stu2')}
+                  onClick={() => copyToClipboard('STU002', 'stu2')}
                   className="p-1 rounded bg-white/5 hover:bg-white/10"
+                  title="Copy Student ID"
                 >
                   {copiedKey === 'stu2' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
                 </button>
