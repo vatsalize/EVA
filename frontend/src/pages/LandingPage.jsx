@@ -9,6 +9,9 @@ import { RoleBenefitsSection } from '../components/landing/RoleBenefitsSection';
 import { FinalCTASection } from '../components/landing/FinalCTASection';
 import { LandingFooter } from '../components/landing/LandingFooter';
 import { EvaluatorModal } from '../components/landing/EvaluatorModal';
+import statsFeaturesBg from '../assets/redesign/eva-statistics-features-bg.jpg';
+import ctaSectionBg from '../assets/redesign/eva-cta-section-bg.jpg';
+import campusDecoImg from '../assets/redesign/eva-portal-campus-decoration.png';
 
 export function LandingPage() {
   const [stats, setStats] = useState({ events: 9, venues: 8, clubs: 6 });
@@ -51,22 +54,53 @@ export function LandingPage() {
       {/* Main Vertically Scrollable Content Flow */}
       <main className="flex-1">
         {/* SECTION 01 — Cinematic Campus Hero */}
-        <HeroSection />
+        <section id="home" className="relative">
+          <HeroSection />
+        </section>
 
-        {/* SECTION 02 — Live Campus Statistics and Key Features */}
-        <StatisticsSection stats={stats} loading={loading} />
-        <FeaturesSection />
+        {/* SECTION 02 — Live Campus Statistics and Key Features (One Continuous Background) */}
+        <section id="features" className="relative bg-[#F8F5F1] overflow-hidden scroll-mt-14">
+          <div
+            className="absolute inset-0 bg-cover bg-bottom sm:bg-center bg-no-repeat pointer-events-none opacity-90 z-0"
+            style={{ backgroundImage: `url(${statsFeaturesBg})` }}
+          />
+          <div className="relative z-10">
+            <StatisticsSection stats={stats} loading={loading} />
+            <FeaturesSection />
+          </div>
+        </section>
 
-        {/* SECTION 03 — Six-Step EVA Workflow and Role-Based Portals */}
-        <WorkflowSection />
-        <RoleBenefitsSection />
+        {/* SECTION 03 (Part 1) — Six-Step EVA Workflow (Charcoal + Bottom Gold Wave Transition) */}
+        <section id="how-it-works" className="relative bg-[#292E35] scroll-mt-14">
+          <WorkflowSection />
+        </section>
 
-        {/* SECTION 04 (Part 1) — Final Call to Action */}
-        <FinalCTASection />
+        {/* SHARED CONTINUOUS ARCHITECTURAL BACKGROUND WRAPPER (Page 3 Portals + Page 4 CTA) */}
+        <div className="relative bg-[#F8F5F1] overflow-hidden">
+          {/* Layer 1: Continuous Campus Architecture & Flowing Curves across entire wrapper */}
+          <div
+            className="absolute inset-0 bg-cover bg-bottom bg-no-repeat pointer-events-none opacity-40 z-0"
+            style={{ backgroundImage: `url(${ctaSectionBg})` }}
+          />
+
+          {/* Layer 2: Subtle Campus Buildings in the outer margins alongside the portal cards */}
+          <div
+            className="absolute inset-x-0 top-0 h-[480px] sm:h-[540px] bg-cover sm:bg-contain bg-top bg-no-repeat pointer-events-none opacity-35 z-0"
+            style={{ backgroundImage: `url(${campusDecoImg})` }}
+          />
+
+          {/* Layer 3: Foreground Content Flow */}
+          <div className="relative z-10">
+            <RoleBenefitsSection />
+            <section id="about" className="relative scroll-mt-14">
+              <FinalCTASection />
+            </section>
+          </div>
+        </div>
+
+        {/* SECTION 04 (Part 2) — Footer (Dark Charcoal) */}
+        <LandingFooter onOpenCredentials={() => setEvaluatorModalOpen(true)} />
       </main>
-
-      {/* SECTION 04 (Part 2) — Final Full-Width Footer */}
-      <LandingFooter onOpenCredentials={() => setEvaluatorModalOpen(true)} />
 
       {/* Evaluator Credentials Modal */}
       <EvaluatorModal

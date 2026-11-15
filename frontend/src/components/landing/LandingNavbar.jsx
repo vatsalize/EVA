@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { Menu, X, ArrowRight, GraduationCap, Users, Key } from 'lucide-react';
@@ -8,30 +8,52 @@ export function LandingNavbar({ onOpenCredentials }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const isClickScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
 
-      const sections = ['home', 'features', 'how-it-works', 'about'];
-      const scrollPosition = window.scrollY + 140;
+      // Do not override active highlight while smooth scrolling from click
+      if (isClickScrollingRef.current) return;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const sectionId = sections[i];
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const top = el.offsetTop;
-          if (scrollPosition >= top) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
+      // When at or near the very bottom of the page, activate 'about'
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
+        setActiveSection('about');
+        return;
+      }
+
+      // Calculate effective scroll anchor point (viewport top + header offset)
+      const scrollPosition = window.scrollY + 180;
+
+      const getTop = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return Infinity;
+        return el.getBoundingClientRect().top + window.scrollY;
+      };
+
+      const featuresTop = getTop('features');
+      const howItWorksTop = getTop('how-it-works');
+      const aboutTop = getTop('about');
+
+      if (scrollPosition >= aboutTop) {
+        setActiveSection('about');
+      } else if (scrollPosition >= howItWorksTop) {
+        setActiveSection('how-it-works');
+      } else if (scrollPosition >= featuresTop) {
+        setActiveSection('features');
+      } else {
+        setActiveSection('home');
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
   }, []);
 
   const navLinks = [
@@ -41,8 +63,16 @@ export function LandingNavbar({ onOpenCredentials }) {
     { name: 'About', href: '#about', id: 'about' },
   ];
 
-  const scrollToSection = (e, href) => {
+  const scrollToSection = (e, linkId, href) => {
     e.preventDefault();
+    if (linkId) {
+      setActiveSection(linkId);
+      isClickScrollingRef.current = true;
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        isClickScrollingRef.current = false;
+      }, 1000);
+    }
     setMobileMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
@@ -64,8 +94,8 @@ export function LandingNavbar({ onOpenCredentials }) {
         <div className="flex items-center gap-3">
           <a
             href="#home"
-            onClick={(e) => scrollToSection(e, '#home')}
-            className="flex items-center gap-3 group"
+            onClick={(e) => scrollToSection(e, 'home', '#home')}
+            className="flex items-center gap-3 group cursor-pointer"
           >
             {/* Rounded square gold logo containing the letter E */}
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#B49168] flex items-center justify-center text-white font-black text-lg sm:text-xl shadow-sm group-hover:scale-105 transition-transform flex-shrink-0">
@@ -96,22 +126,22 @@ export function LandingNavbar({ onOpenCredentials }) {
           </a>
         </div>
 
-        {/* Center Section: Navigation Links */}
+        {/* Center Section: Navigation Links with Exact Equal Visual Gaps */}
         <nav className="hidden md:flex items-center">
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-7 lg:gap-8">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
                 <a
                   key={link.id}
                   href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className={`px-4 py-1.5 rounded-full text-xs lg:text-sm transition-all duration-200 ${
+                  onClick={(e) => scrollToSection(e, link.id, link.href)}
+                  className={`text-xs lg:text-sm transition-all duration-200 inline-flex items-center justify-center cursor-pointer ${
                     isActive
-                      ? 'bg-[#EACBA5] text-[#292E35] font-semibold shadow-sm'
+                      ? 'px-4 py-1.5 rounded-full bg-[#EACBA5] text-[#292E35] font-semibold shadow-sm'
                       : isScrolled
-                      ? 'text-[#292E35] hover:text-[#292E35] hover:bg-[#E4D9CB]/40 font-medium'
-                      : 'text-white/90 hover:text-white hover:bg-white/10 font-medium'
+                      ? 'px-0 py-1.5 text-[#292E35] hover:text-[#B49168] font-medium'
+                      : 'px-0 py-1.5 text-white/90 hover:text-white font-medium'
                   }`}
                 >
                   {link.name}
@@ -152,7 +182,7 @@ export function LandingNavbar({ onOpenCredentials }) {
                 className="px-4 lg:px-5 py-2 text-xs lg:text-sm font-medium text-white bg-[#B49168] hover:bg-[#9E7D58] rounded-full shadow-sm transition-all flex items-center gap-1.5 hover:scale-105"
               >
                 <Users className="w-4 h-4" />
-                <span>Coordinator Portal</span>
+                <span>Coordinator Login</span>
               </Link>
             </>
           )}
@@ -195,7 +225,7 @@ export function LandingNavbar({ onOpenCredentials }) {
               <a
                 key={link.id}
                 href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
+                onClick={(e) => scrollToSection(e, link.id, link.href)}
                 className={`px-4 py-2.5 rounded-xl text-sm transition-colors ${
                   activeSection === link.id
                     ? 'bg-[#EACBA5] text-[#292E35] font-bold shadow-sm'

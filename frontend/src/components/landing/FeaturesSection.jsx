@@ -42,29 +42,7 @@ export function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="relative pt-8 pb-20 bg-[#F8F5F1] overflow-hidden">
-      
-      {/* Subtle Background Architectural Silhouettes (Left & Right) */}
-      <div className="absolute left-0 bottom-0 pointer-events-none opacity-25 hidden sm:block">
-        <svg width="240" height="150" viewBox="0 0 240 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 150 L0 100 L40 100 L40 60 L90 60 L90 40 L150 40 L150 80 L200 80 L200 120 L240 120 L240 150 Z" stroke="#B49168" strokeWidth="1" fill="#EDE5DA" fillOpacity="0.4"/>
-          <line x1="20" y1="100" x2="20" y2="150" stroke="#B49168" strokeWidth="0.8" />
-          <line x1="65" y1="60" x2="65" y2="150" stroke="#B49168" strokeWidth="0.8" />
-          <line x1="120" y1="40" x2="120" y2="150" stroke="#B49168" strokeWidth="0.8" />
-          <line x1="175" y1="80" x2="175" y2="150" stroke="#B49168" strokeWidth="0.8" />
-        </svg>
-      </div>
-
-      <div className="absolute right-0 bottom-0 pointer-events-none opacity-25 hidden sm:block">
-        <svg width="240" height="150" viewBox="0 0 240 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M240 150 L240 100 L200 100 L200 50 L140 50 L140 70 L90 70 L90 110 L40 110 L40 130 L0 130 L0 150 Z" stroke="#B49168" strokeWidth="1" fill="#EDE5DA" fillOpacity="0.4"/>
-          <line x1="220" y1="100" x2="220" y2="150" stroke="#B49168" strokeWidth="0.8" />
-          <line x1="170" y1="50" x2="170" y2="150" stroke="#B49168" strokeWidth="0.8" />
-          <line x1="115" y1="70" x2="115" y2="150" stroke="#B49168" strokeWidth="0.8" />
-          <line x1="65" y1="110" x2="65" y2="150" stroke="#B49168" strokeWidth="0.8" />
-        </svg>
-      </div>
-
+    <section id="features" className="relative pt-6 pb-20 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Subsection Header: KEY FEATURES */}
@@ -93,7 +71,7 @@ export function FeaturesSection() {
             return (
               <div
                 key={feature.id}
-                className="bg-white rounded-2xl p-6 border border-[#E4D9CB] shadow-sm hover:shadow-md transition-all duration-300 flex items-start gap-4.5 hover:-translate-y-0.5 group"
+                className="bg-white/95 backdrop-blur-xs rounded-2xl p-6 border border-[#E4D9CB] shadow-sm hover:shadow-md transition-all duration-300 flex items-start gap-4.5 hover:-translate-y-0.5 group"
               >
                 {/* Gold Rounded Square Container */}
                 <div className="w-12 h-12 rounded-2xl bg-[#F7EFE6] border border-[#EACBA5]/60 flex items-center justify-center flex-shrink-0 text-[#926B3C] group-hover:scale-105 transition-transform duration-300 shadow-xs">

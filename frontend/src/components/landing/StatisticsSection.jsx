@@ -26,7 +26,7 @@ export function StatisticsSection({ stats, loading }) {
   ];
 
   return (
-    <section id="analytics" className="relative z-10 pt-16 pb-10 bg-[#F8F5F1] overflow-hidden">
+    <section id="analytics" className="relative z-10 pt-16 pb-8 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Subsection Header: LIVE AT TIET */}
@@ -55,7 +55,7 @@ export function StatisticsSection({ stats, loading }) {
             return (
               <div
                 key={index}
-                className="bg-white rounded-2xl border border-[#E4D9CB] p-5 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-4.5 group"
+                className="bg-white/95 backdrop-blur-xs rounded-2xl border border-[#E4D9CB] p-5 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-4.5 group"
               >
                 {/* Gold Circle Icon Container */}
                 <div className="w-13 h-13 rounded-full bg-[#F7EFE6] border border-[#EACBA5]/60 flex items-center justify-center flex-shrink-0 text-[#926B3C] group-hover:scale-105 transition-transform duration-300">
