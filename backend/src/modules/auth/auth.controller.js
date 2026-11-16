@@ -2,6 +2,18 @@ import jwt from 'jsonwebtoken';
 import { query } from '../../config/db.js';
 import { env } from '../../config/env.js';
 import { verifyPassword, hashPassword } from '../../utils/security.js';
+import {
+  getClientIp,
+  checkDemoRateLimit,
+  recordFailedDemoAttempt,
+  resetDemoRateLimit,
+  verifyDemoPassword,
+  generateDemoAccessToken,
+  verifyDemoAccessToken,
+  isDemoCoordinatorAccount,
+  DEMO_COORDINATOR_ACCOUNTS,
+  DEMO_COORDINATOR_DEFAULT_PASSWORD
+} from './demoAccess.service.js';
 
 export const AuthController = {
   /**
@@ -220,6 +232,20 @@ export const AuthController = {
         });
       }
 
+      // Security Guard: Predefined demo coordinator accounts require valid owner demo authorization
+      if (isDemoCoordinatorAccount(user.user_id, user.email)) {
+        const demoToken = req.headers['x-demo-access-token'] || req.body?.demoAccessToken;
+        const demoAuth = verifyDemoAccessToken(demoToken);
+
+        if (!demoAuth.valid) {
+          return res.status(403).json({
+            success: false,
+            message: 'Access denied. Predefined coordinator demo accounts are locked. Please unlock Coordinator Demo Access with the owner password.',
+            reason: demoAuth.reason
+          });
+        }
+      }
+
       if (!verifyPassword(password, user.password_hash)) {
         return res.status(401).json({
           success: false,
@@ -339,5 +365,109 @@ export const AuthController = {
     } catch (err) {
       next(err);
     }
+  },
+
+  /**
+   * Verify Coordinator Demo Access Password
+   * POST /api/auth/coordinator-demo-access
+   * and POST /api/auth/coordinator/verify-demo-access
+   */
+  async verifyCoordinatorDemoAccess(req, res, next) {
+    try {
+      const clientIp = getClientIp(req);
+
+      // 1. Rate limiting & Brute Force Protection
+      const rateLimit = checkDemoRateLimit(clientIp);
+      if (!rateLimit.allowed) {
+        return res.status(429).json({
+          success: false,
+          message: `Too many failed demo unlock attempts. Please try again in ${rateLimit.retryAfterSec} seconds.`,
+          retryAfterSec: rateLimit.retryAfterSec
+        });
+      }
+
+      const { password } = req.body || {};
+
+      if (!password || typeof password !== 'string') {
+        recordFailedDemoAttempt(clientIp);
+        return res.status(400).json({
+          success: false,
+          message: 'Access password is required.'
+        });
+      }
+
+      // 2. Timing-safe password verification
+      const checkResult = verifyDemoPassword(password);
+
+      if (checkResult.disabled) {
+        return res.status(503).json({
+          success: false,
+          message: 'Coordinator demo access is currently unconfigured or disabled on this server.'
+        });
+      }
+
+      if (!checkResult.ok) {
+        recordFailedDemoAttempt(clientIp);
+        return res.status(401).json({
+          success: false,
+          message: 'Incorrect access password. Please try again.'
+        });
+      }
+
+      // 3. Clear rate limit on successful authentication
+      resetDemoRateLimit(clientIp);
+
+      // 4. Issue cryptographically signed, short-lived demo access token (15m expiry)
+      const demoAccessToken = generateDemoAccessToken();
+
+      return res.json({
+        success: true,
+        message: 'Coordinator demo access unlocked successfully.',
+        demoAccessToken,
+        expiresIn: 900,
+        accounts: DEMO_COORDINATOR_ACCOUNTS,
+        defaultPassword: DEMO_COORDINATOR_DEFAULT_PASSWORD
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  /**
+   * Check Coordinator Demo Access Status
+   * GET /api/auth/coordinator-demo-status
+   */
+  async getCoordinatorDemoStatus(req, res) {
+    const isConfigured = Boolean(
+      env.EVA_COORDINATOR_DEMO_ACCESS_PASSWORD &&
+      env.EVA_COORDINATOR_DEMO_ACCESS_PASSWORD.trim().length > 0
+    );
+
+    return res.json({
+      success: true,
+      isConfigured
+    });
+  },
+
+  /**
+   * Retrieve Predefined Demo Coordinator Accounts (Protected)
+   * GET /api/auth/coordinator-demo-accounts
+   */
+  async getCoordinatorDemoAccounts(req, res) {
+    const token = req.headers['x-demo-access-token'] || req.headers.authorization?.replace(/^Bearer\s+/i, '');
+    const verification = verifyDemoAccessToken(token);
+
+    if (!verification.valid) {
+      return res.status(401).json({
+        success: false,
+        message: verification.reason || 'Unauthorized: Valid demo authorization required.'
+      });
+    }
+
+    return res.json({
+      success: true,
+      accounts: DEMO_COORDINATOR_ACCOUNTS,
+      defaultPassword: DEMO_COORDINATOR_DEFAULT_PASSWORD
+    });
   }
 };

@@ -9,12 +9,23 @@ import {
   getInitials,
 } from '../../data/demoAccounts';
 
-export function DemoAccountModal({ isOpen, onClose, type = 'student', onSelectAccount }) {
+export function DemoAccountModal({
+  isOpen,
+  onClose,
+  type = 'student',
+  onSelectAccount,
+  customAccounts = null,
+  customDefaultPassword = null
+}) {
   const modalRef = useRef(null);
   const isCoordinator = type === 'coordinator';
 
-  const accounts = isCoordinator ? DEMO_COORDINATOR_ACCOUNTS : DEMO_STUDENT_ACCOUNTS;
-  const defaultPassword = isCoordinator ? DEMO_COORDINATOR_PASSWORD : DEMO_STUDENT_PASSWORD;
+  const accounts = (isCoordinator && customAccounts)
+    ? customAccounts
+    : (isCoordinator ? DEMO_COORDINATOR_ACCOUNTS : DEMO_STUDENT_ACCOUNTS);
+  const defaultPassword = (isCoordinator && customDefaultPassword !== null)
+    ? customDefaultPassword
+    : (isCoordinator ? DEMO_COORDINATOR_PASSWORD : DEMO_STUDENT_PASSWORD);
   const title = isCoordinator ? 'Demo Coordinator Accounts' : 'Demo Student Accounts';
   const subtitle = 'Choose an account to explore EVA.';
 

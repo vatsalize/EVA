@@ -16,7 +16,8 @@ export const env = {
   DB_PATH: process.env.DB_PATH || path.resolve(__dirname, '../../../database/eva.db'),
   CORS_ORIGIN: process.env.CORS_ORIGIN || '*',
   INSTITUTE_DOMAIN: process.env.INSTITUTE_DOMAIN || 'thapar.edu',
-  ALLOW_DEMO_EMAILS: process.env.ALLOW_DEMO_EMAILS !== 'false'
+  ALLOW_DEMO_EMAILS: process.env.ALLOW_DEMO_EMAILS !== 'false',
+  EVA_COORDINATOR_DEMO_ACCESS_PASSWORD: process.env.EVA_COORDINATOR_DEMO_ACCESS_PASSWORD || ''
 };
 
 export default env;

@@ -62,7 +62,7 @@ export function CoordinatorLayout() {
           <div className="flex items-center gap-2">
             <ShieldAlert className="w-4 h-4 text-[#966014] flex-shrink-0" />
             <span>
-              <strong>Security Notice:</strong> You are using default demo credentials (<code>EVA-Demo@2026</code>). Please update your password.
+              <strong>Security Notice:</strong> You are using default demo credentials. Please update your password.
             </span>
           </div>
           <button
@@ -95,7 +95,7 @@ export function CoordinatorLayout() {
               required
               value={currentPw}
               onChange={(e) => setCurrentPw(e.target.value)}
-              placeholder="e.g. EVA-Demo@2026"
+              placeholder="Enter current password"
               className="w-full px-3 py-2 text-sm bg-[#FFFDFC] border border-[#DFD0BE] rounded-xl text-[#262B32] focus:ring-2 focus:ring-[#B8956B] focus:outline-none transition-all"
             />
           </div>

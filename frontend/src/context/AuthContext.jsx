@@ -54,8 +54,16 @@ export function AuthProvider({ children }) {
     return res.data;
   };
 
-  const loginCoordinator = async (coordinatorId, password) => {
-    const res = await api.post('/auth/coordinator/login', { coordinatorId, password });
+  const loginCoordinator = async (coordinatorId, password, demoAccessToken = null) => {
+    const config = {};
+    if (demoAccessToken) {
+      config.headers = { 'x-demo-access-token': demoAccessToken };
+    }
+    const payload = { coordinatorId, password };
+    if (demoAccessToken) {
+      payload.demoAccessToken = demoAccessToken;
+    }
+    const res = await api.post('/auth/coordinator/login', payload, config);
     if (res.data.success) {
       setToken(res.data.token);
       setUser(res.data.user);

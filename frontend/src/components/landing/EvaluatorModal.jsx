@@ -13,15 +13,6 @@ export function EvaluatorModal({ isOpen, onClose }) {
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
-  const coordinators = [
-    { id: 'COO001', name: 'Rohan Sharma', club: 'Coding Club' },
-    { id: 'COO002', name: 'Simran Kaur', club: 'Robotics Society' },
-    { id: 'COO003', name: 'Aarav Mehta', club: 'Music Club' },
-    { id: 'COO004', name: 'Ananya Verma', club: 'Literary Society' },
-    { id: 'COO005', name: 'Kabir Patel', club: 'E-Cell' },
-    { id: 'COO006', name: 'Ishita Gupta', club: 'Fine Arts Club' },
-  ];
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="bg-[#222426] border border-[#B49168]/30 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-8 text-white relative">
@@ -45,55 +36,30 @@ export function EvaluatorModal({ isOpen, onClose }) {
           </div>
         </div>
 
-        {/* Coordinator Accounts */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-3">
+        {/* Coordinator Accounts (Password-Protected) */}
+        <div className="mb-6 p-4 rounded-2xl bg-white/[0.03] border border-[#B49168]/20">
+          <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-bold uppercase tracking-wider text-[#EACBA5] flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-[#B49168]" />
-              Club Coordinators (All share password: EVA-Demo@2026)
+              Club Coordinators (Protected Access)
             </div>
-            <button
-              onClick={() => copyToClipboard('EVA-Demo@2026', 'pass-coo')}
-              className="text-xs text-[#EACBA5] hover:text-white flex items-center gap-1 font-mono"
-            >
-              {copiedKey === 'pass-coo' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              Copy Password
-            </button>
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">
+              Password Protected
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {coordinators.map((c) => (
-              <div
-                key={c.id}
-                className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between hover:border-[#B49168]/50 transition-colors"
-              >
-                <div>
-                  <div className="text-sm font-bold text-white font-mono flex items-center gap-2">
-                    {c.id}
-                    <span className="text-[11px] font-normal text-[#EACBA5] px-1.5 py-0.5 rounded bg-[#B49168]/15 border border-[#B49168]/30">
-                      {c.club}
-                    </span>
-                  </div>
-                  <div className="text-xs text-slate-400">{c.name}</div>
-                </div>
-                <button
-                  onClick={() => copyToClipboard(c.id, c.id)}
-                  className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white"
-                  title="Copy Coordinator ID"
-                >
-                  {copiedKey === c.id ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                </button>
-              </div>
-            ))}
-          </div>
+          <p className="text-xs text-slate-300 mb-3 leading-relaxed">
+            Predefined coordinator demo accounts are restricted and protected with owner verification. To unlock and select demo coordinator accounts, visit the Coordinator Portal.
+          </p>
 
-          <div className="mt-3 flex justify-end">
+          <div className="flex justify-end">
             <Link
               to="/coordinator/login"
               onClick={onClose}
-              className="text-xs font-semibold text-[#EACBA5] hover:text-white flex items-center gap-1"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#B49168]/20 hover:bg-[#B49168]/30 border border-[#B49168]/40 text-xs font-semibold text-[#EACBA5] hover:text-white transition-all"
             >
-              Go to Coordinator Login <ExternalLink className="w-3 h-3" />
+              <span>Unlock on Coordinator Portal</span>
+              <ExternalLink className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

@@ -4,58 +4,14 @@
  */
 
 export const DEMO_STUDENT_PASSWORD = 'Student@2026';
-export const DEMO_COORDINATOR_PASSWORD = 'EVA-Demo@2026';
 
-export const DEMO_COORDINATOR_ACCOUNTS = [
-  {
-    id: 'COO001',
-    name: 'Aarav Sharma',
-    email: 'aarav.sharma@eva-demo.test',
-    club: 'Coding Club',
-    clubId: 'CLB001',
-    role: 'Coordinator'
-  },
-  {
-    id: 'COO002',
-    name: 'Diya Verma',
-    email: 'diya.verma@eva-demo.test',
-    club: 'Robotics Club',
-    clubId: 'CLB002',
-    role: 'Coordinator'
-  },
-  {
-    id: 'COO003',
-    name: 'Kabir Mehta',
-    email: 'kabir.mehta@eva-demo.test',
-    club: 'Cultural Club',
-    clubId: 'CLB003',
-    role: 'Coordinator'
-  },
-  {
-    id: 'COO004',
-    name: 'Ananya Rao',
-    email: 'ananya.rao@eva-demo.test',
-    club: 'Literary Society',
-    clubId: 'CLB004',
-    role: 'Coordinator'
-  },
-  {
-    id: 'COO005',
-    name: 'Reyansh Gupta',
-    email: 'reyansh.gupta@eva-demo.test',
-    club: 'Entrepreneurship Cell',
-    clubId: 'CLB005',
-    role: 'Coordinator'
-  },
-  {
-    id: 'COO006',
-    name: 'Myra Kapoor',
-    email: 'myra.kapoor@eva-demo.test',
-    club: 'Photography Club',
-    clubId: 'CLB006',
-    role: 'Coordinator'
-  }
-];
+/**
+ * Coordinator demo accounts are protected and managed on the server.
+ * Predefined accounts and credentials are only returned to the client
+ * after server-side verification of the owner demo access password.
+ */
+export const DEMO_COORDINATOR_PASSWORD = '';
+export const DEMO_COORDINATOR_ACCOUNTS = [];
 
 export const DEMO_STUDENT_ACCOUNTS = [
   {
