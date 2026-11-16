@@ -13,13 +13,39 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // Middleware
+const rawCors = env.CORS_ORIGIN || '*';
+const allowedOrigins = rawCors.split(',').map(o => o.trim().replace(/\/+$/, '')).filter(Boolean);
+
 app.use(cors({
-  origin: env.CORS_ORIGIN,
+  origin: (origin, callback) => {
+    // Allow non-browser requests (mobile apps, curl, server-to-server) or wildcard
+    if (!origin || allowedOrigins.includes('*')) {
+      return callback(null, true);
+    }
+    const cleanOrigin = origin.trim().replace(/\/+$/, '');
+    const isMatch = allowedOrigins.some(allowed => {
+      if (cleanOrigin === allowed) return true;
+      // Also match www / non-www variant
+      const withWww = allowed.replace('://', '://www.');
+      const withoutWww = allowed.replace('://www.', '://');
+      return cleanOrigin === withWww || cleanOrigin === withoutWww;
+    });
+
+    if (isMatch) {
+      return callback(null, true);
+    }
+    return callback(new Error(`Blocked by CORS for origin: ${origin}`));
+  },
   credentials: true
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Default health check aliases for Render / Cloud load balancers (/healthz, /health)
+app.get(['/healthz', '/health'], (req, res) => {
+  res.status(200).json({ status: 'healthy', service: 'EVA Backend API' });
+});
 
 // Request Logger in development
 if (env.NODE_ENV === 'development') {
